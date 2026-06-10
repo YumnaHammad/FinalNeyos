@@ -1,0 +1,109 @@
+/* Styles specific to Indoor_Air_Quality component - improves spacing and layout */
+.solution-page {
+  --container-max: 1140px;
+}
+
+.solution-page .container {
+  max-width: var(--container-max);
+}
+
+/* Uniform section spacing */
+.solution-page section {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Larger spacing for medium+ screens */
+@media (min-width: 768px) {
+  .solution-page section {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .solution-page section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+}
+
+/* Hero tweaks */
+.solution-page header .container {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+
+/* Card baseline styling */
+.solution-page .card {
+  border-radius: 0.75rem;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+.solution-page .card.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+}
+
+/* Make the circular icon area consistent */
+.solution-page .rounded-circle {
+  width: 72px !important;
+  height: 72px !important;
+}
+.solution-page .rounded-circle img {
+  width: 34px !important;
+  height: 34px !important;
+  object-fit: contain;
+}
+
+/* Tighter card body spacing and readable text */
+.solution-page .card-body {
+  padding: 1.25rem !important;
+}
+.solution-page .card h3,
+.solution-page .card p {
+  margin-bottom: 0.5rem;
+}
+
+/* Health impact numbers styling */
+.solution-page .display-6 {
+  font-size: 1.6rem;
+}
+
+/* Improve habitat cards grid spacing */
+@media (min-width: 992px) {
+  .solution-page .row.row-cols-lg-2 > .col {
+    display: flex;
+  }
+  .solution-page .row.row-cols-lg-2 > .col .card {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Partner / Left columns: ensure timestamps are subtle */
+.solution-page .text-muted.small {
+  color: rgba(33,37,41,0.6) !important;
+}
+
+/* Footer spacing to avoid crowding */
+.solution-page footer,
+.solution-page .container:last-child {
+  margin-bottom: 2rem;
+}
+
+/* Give section headings more breathing room */
+.solution-page h2.h3 {
+  margin-bottom: 1rem;
+}
+
+/* Reduce overly large lead line-height in hero */
+.solution-page .lead {
+  max-width: 60ch;
+}

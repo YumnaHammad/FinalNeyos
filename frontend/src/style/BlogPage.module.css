@@ -1,0 +1,20 @@
+/* styles/BlogPage.module.css */
+.blogPage {
+  padding: 40px 0;
+}
+
+.pageTitle {
+  font-weight: 700;
+  color: #00667c;
+  margin-bottom: 10px;
+  font-size: 30px;
+}
+
+.pageSubtitle {
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+.blogcols {
+  margin-bottom: 30px !important;
+}

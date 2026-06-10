@@ -1,0 +1,76 @@
+/* styles/BlogDetailPage.module.css */
+.blogDetailPage {
+  padding: 40px 0;
+  max-width: 800px;
+}
+
+.backButton {
+  margin-bottom: 30px;
+  border-radius: 20px;
+  padding: 5px 15px;
+}
+
+.blogHeader {
+  margin-bottom: 30px;
+}
+
+.categoryBadges {
+  margin-bottom: 15px;
+}
+
+.categoryBadge {
+  margin-right: 8px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+.blogTitle {
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 30px;
+}
+
+.blogDate {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.blogImageContainer {
+  margin: 30px 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.blogImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.blogContent {
+  line-height: 1.8;
+  color: #444;
+}
+
+.blogContent h2,
+.blogContent h3,
+.blogContent h4 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.blogContent p {
+  margin-bottom: 20px;
+}
+
+.blogContent ul {
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+
+.blogContent li {
+  margin-bottom: 8px;
+}

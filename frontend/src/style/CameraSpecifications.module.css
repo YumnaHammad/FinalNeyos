@@ -1,0 +1,263 @@
+/* Container styles */
+.modelsContainer {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.sectionTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Tab categories */
+.tabCategories {
+  margin-bottom: 24px;
+}
+
+.category {
+  margin-bottom: 16px;
+}
+
+.categoryTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.modelTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.modelTab {
+  padding: 8px 16px;
+  background: #f5f5f5;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #ddd;
+}
+
+.modelTab:hover {
+  background: #e9e9e9;
+}
+
+.modelTab.active {
+  background: #00667c;
+  color: white;
+  border-color: #00667c;
+}
+
+.modelTab.eol {
+  position: relative;
+}
+
+.modelTab.eol::after {
+  content: "EOL";
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ff6b6b;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.modelTab.projectBased {
+  background: #e3f2fd;
+  border-color: #bbdefb;
+}
+
+/* Specification table */
+.specTableContainer {
+  overflow-x: auto;
+}
+
+.specTableWrapper {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.specTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.thead th {
+  background: #f8f9fa;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 16px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+}
+
+.specRow {
+  border-bottom: 1px solid #eee;
+}
+
+.specRow:last-child {
+  border-bottom: none;
+}
+
+.specLabel {
+  padding: 12px 16px;
+  width: 30%;
+  font-weight: 500;
+  color: #555;
+  background: #fafafa;
+}
+
+.specValue {
+  padding: 12px 16px;
+  color: #333;
+}
+
+.modelNameRow td {
+  padding: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  background: #f0f7ff;
+}
+
+/* Footnote */
+.footnote {
+  padding: 16px;
+  background: #f8f9fa;
+  border-top: 1px solid #eee;
+  font-size: 14px;
+  color: #666;
+}
+
+.footnote p {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.footnote ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.footnote li {
+  margin-bottom: 4px;
+}
+.specContainer {
+  padding: 20px;
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .modelTabs {
+    flex-direction: column;
+  }
+
+  .modelTab {
+    width: 100%;
+    text-align: center;
+  }
+
+  .specLabel,
+  .specValue {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  .specContainer {
+    padding: 0px;
+  }
+}
+
+.mainTitle {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.tabBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+  transition: all 0.3s ease;
+}
+
+.stickyTabBar {
+  position: fixed;
+  top: 67px;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background-color: white;
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.tabButton {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.activeTab {
+  background-color: #00667c;
+  color: white;
+  border-color: #00667c;
+}
+
+.sectionsContainer {
+  margin-top: 20px;
+}
+
+.specSection {
+  margin-bottom: 40px;
+}
+
+.sectionTitle {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.specTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.specTable td {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.specLabel {
+  font-weight: 600;
+  width: 40%;
+}
+
+.specValue {
+  color: #444;
+}
+
+.noData {
+  color: #777;
+  font-style: italic;
+}

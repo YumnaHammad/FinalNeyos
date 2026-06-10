@@ -1,0 +1,41 @@
+.IndustryTabButton.active {
+  border: 1px solid gray;
+  color: red;
+}
+.SolutionTab.active {
+  border-top: 1px solid gray;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  color: red;
+}
+.FuctionButton.active {
+  border: 1px solid #ddd;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  position: relative;
+  border-bottom-color: rgb(255, 255, 255);
+  color: #d7150e;
+}
+
+.TrafficTab{
+  height: 300px;
+}
+.M0delsLensesCards{
+  height: 52vh;
+}
+@media only screen and (max-width: 768px) {
+.TrafficTab{
+  height: 342px;
+}
+.AI_Card{
+  height:10rem
+}
+}
+.Functionnav::-webkit-scrollbar {
+  height: 6px;
+}
+.Functionnav::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
+}
+

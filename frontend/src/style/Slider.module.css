@@ -1,0 +1,38 @@
+.card {
+  min-width: 150px;
+  padding: 1rem;
+  cursor: pointer;
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  background: #fff;
+  flex: 1;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  border-color: #007bff;
+}
+
+.card.active {
+  border-color: #007bff;
+  background-color: #f8f9fa;
+}
+img {
+  border-radius: 10px;
+}
+.fadeIn {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.fadeOut {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+

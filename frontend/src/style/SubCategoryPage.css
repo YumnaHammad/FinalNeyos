@@ -1,0 +1,9 @@
+.custom-padding {
+  padding: 0px 140px; /* Desktop default */
+}
+
+@media screen and (max-width: 767px) {
+  .custom-padding {
+    padding: 0px 90px; /* Remove on small screens */
+  }
+}

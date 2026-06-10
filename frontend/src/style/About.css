@@ -1,0 +1,131 @@
+.swiper-superior {
+  width: 100%;
+  height: 400px;
+  perspective: 1300px;
+}
+
+.swiper-superior .swiper-slide {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.cards-group {
+  display: flex;
+  gap: 80px;
+  width: 100%;
+  justify-content: center;
+}
+
+.swiper-superior .card {
+  width: 250px;
+  height: 300px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+@media (max-width: 768px) {
+  .cards-group {
+    display: block;
+  }
+  .swiper-superior {
+    height: 100% !important;
+  }
+  .swiper-superior .swiper-slide {
+    height: 100%;
+  }
+}
+.swiper-superior .card img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 20px;
+}
+
+.swiper-superior .card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.swiper-superior .card p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.swiper-superior .swiper-slide-active .card {
+  transform: scale(1.05);
+  z-index: 10;
+}
+.company-profile {
+  padding: 60px 0;
+  background-color: #f9f9f9;
+  font-family: "Arial", sans-serif;
+}
+
+.profile-title {
+  font-size: 36px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+
+.profile-description {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 40px;
+  text-align: justify;
+}
+
+.divider {
+  height: 1px;
+  background-color: #ddd;
+  margin: 40px 0;
+}
+
+.video-section {
+  text-align: center;
+}
+
+.video-title {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.video-subtitle {
+  font-size: 20px;
+  color: #666;
+  margin-bottom: 30px;
+  font-style: italic;
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  max-width: 900px;
+  margin: 0 auto;
+  background: #000;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.youtube-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

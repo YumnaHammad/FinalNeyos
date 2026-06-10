@@ -1,0 +1,13 @@
+.highlightSecCardImg{
+    height: 9rem;
+    width: 30%;
+}
+.highlightSecCard{
+    border:1px solid rgb(198, 197, 197)
+}
+.highlightSecCard:hover{
+    border:1px solid rgb(60, 101, 239);
+}
+.IntrestedSecCardImg{
+    height: 23rem;
+}

@@ -1,0 +1,41 @@
+/* Hover Classes Start */
+.item-hover {
+  &:hover {
+    .item-hover__text {
+      color: #00667c !important;
+    }
+  }
+}
+.item-hover-two {
+  &:hover {
+    .item-hover__text {
+      color: #00667c !important;
+    }
+  }
+}
+
+.on-hover-dropdown {
+  visibility: hidden;
+  opacity: 0;
+  margin-block-start: 16px;
+}
+
+.on-hover-item {
+  position: relative;
+  &:hover {
+    .on-hover-dropdown {
+      visibility: visible;
+      opacity: 1;
+      margin-block-start: 0;
+    }
+    > a {
+      &::before {
+        @media (min-width: 992px) {
+          color: #00667c;
+          transform: translateY(-50%) rotate(180deg);
+        }
+      }
+    }
+  }
+}
+/* Hover Classes End */

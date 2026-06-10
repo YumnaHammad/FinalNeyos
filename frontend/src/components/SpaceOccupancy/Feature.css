@@ -1,0 +1,47 @@
+.FeatureProducts img{
+    height: 8rem;
+
+}
+/* .FeatureProducts:hover{
+    background-color: #5B6169;
+    
+} */
+.FeatureProducts{
+    width:27%;
+    border: 1px solid white;
+    padding: 20px 10px 20px 33px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.nextarrow,.lefttarrow{
+    border: 1px solid white;
+    background-color: #5B6169;
+    border-radius: 15px;
+}
+.nextarrow .icon{
+    font-size: 32px;
+}
+.FeatureProducts:hover{
+      transform: translateY(-6px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+.FeatureProducts h3{
+margin: 0px;
+
+}
+.FeatureProducts p{
+    font-size: 17px;
+}
+.FeatureProducts ul li{
+    list-style: disc;
+}
+.FeatureCards{
+    padding-top: 23px;
+}
+/* Hide scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

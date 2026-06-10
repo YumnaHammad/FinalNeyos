@@ -1,0 +1,760 @@
+/* SollPage Component Styles - Standardized Version */
+
+/* Custom CSS Variables */
+:root {
+  --primary-blue: #2563eb;
+  --primary-blue-hover: #1d4ed8;
+  --secondary-blue: #3b82f6;
+  --accent-blue: #60a5fa;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --text-light: #9ca3af;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-accent: #f3f4f6;
+  --border-color: #e5e7eb;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+/* Standard Typography */
+.soll-page {
+  font-family: inherit;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.soll-page h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.soll-page h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 0.75rem;
+}
+
+.soll-page h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+.soll-page h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+.soll-page p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* Standard Breadcrumbs */
+.soll-breadcrumbs {
+  background: #f9fafb;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.75rem 0;
+}
+
+.soll-breadcrumbs nav {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.soll-breadcrumbs nav a {
+  position: relative;
+  transition: color 0.2s ease;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.soll-breadcrumbs nav a:hover {
+  color: var(--primary-blue);
+  background: rgba(37, 99, 235, 0.05);
+}
+
+/* Standard Hero Section */
+.soll-hero-section {
+  padding: 3rem 0;
+  background: #f9fafb;
+}
+
+.soll-hero-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.soll-hero-text h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.soll-hero-text .hero-description {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+/* Standard Feature Lists */
+.soll-features-list {
+  margin: 1.5rem 0;
+}
+
+.soll-feature-item {
+  position: relative;
+  padding: 0.5rem 0 0.5rem 1.25rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.soll-feature-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background: var(--primary-blue);
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.soll-feature-item:hover::before {
+  width: 10px;
+  height: 10px;
+  background: var(--secondary-blue);
+}
+
+.soll-feature-item:hover {
+  transform: translateX(4px);
+  color: var(--text-primary);
+}
+
+/* Standard Buttons */
+.soll-btn-primary {
+  background: var(--primary-blue);
+  border: none;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.soll-btn-primary:hover {
+  background: var(--primary-blue-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.soll-btn-secondary {
+  background: transparent;
+  border: 2px solid var(--primary-blue);
+  color: var(--primary-blue);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.soll-btn-secondary:hover {
+  background: var(--primary-blue);
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* Standard Product Image */
+.soll-product-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+}
+
+.soll-product-image img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.soll-product-image:hover img {
+  transform: scale(1.02);
+}
+
+/* Standard Section Spacing */
+.soll-section {
+  padding: 3rem 0;
+}
+
+.soll-section:nth-child(even) {
+  background: var(--bg-secondary);
+}
+
+.soll-section-header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.soll-section-header h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.soll-section-header p {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.soll-section-header::after {
+  content: '';
+  position: absolute;
+  bottom: -0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--primary-blue);
+  border-radius: 2px;
+}
+
+/* Standard Cards */
+.soll-product-card {
+  background: var(--bg-primary);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.soll-product-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--primary-blue);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.soll-product-card:hover::before {
+  transform: scaleX(1);
+}
+
+.soll-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent-blue);
+}
+
+.soll-product-card h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.soll-product-card p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.soll-product-card .card-features {
+  margin: 1rem 0;
+}
+
+.soll-product-card .card-feature {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.soll-product-card .card-feature::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--primary-blue);
+  font-weight: bold;
+}
+
+/* Standard Form Inputs */
+.soll-form-input {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background: var(--bg-primary);
+  width: 100%;
+  font-family: inherit;
+}
+
+.soll-form-input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.soll-form-input:hover {
+  border-color: var(--accent-blue);
+}
+
+.soll-form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+/* Standard Documentation Items */
+.soll-doc-item {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 1.25rem;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  margin-bottom: 0.75rem;
+}
+
+.soll-doc-item:hover {
+  background: var(--bg-primary);
+  border-color: var(--accent-blue);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-sm);
+}
+
+.soll-doc-item h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.soll-doc-item p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+/* Standard Certification Icons */
+.soll-cert-icon {
+  background: var(--primary-blue);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  position: relative;
+}
+
+.soll-cert-icon span {
+  color: white;
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+.soll-cert-text {
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Standard Blurred Image */
+.soll-blurred-image {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 50%, #a5b4fc 100%);
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.soll-blurred-image .overlay-text {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.soll-blurred-image .overlay-text h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.soll-blurred-image .overlay-text p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* Standard Dashboard Mock */
+.soll-dashboard-mock {
+  background: #1f2937;
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+.soll-dashboard-mock::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #3b82f6, #10b981, #f59e0b);
+}
+
+.soll-dashboard-mock h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.soll-dashboard-mock .dashboard-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.soll-dashboard-mock .dashboard-feature {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.75rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.soll-dashboard-mock .dashboard-feature h5 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.soll-dashboard-mock .dashboard-feature p {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Standard Search Bar */
+.soll-search-bar {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.5rem;
+}
+
+.soll-search-bar .search-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.soll-search-bar input,
+.soll-search-bar select {
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  font-family: inherit;
+}
+
+.soll-search-bar input:focus,
+.soll-search-bar select:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+.soll-search-bar .search-btn {
+  background: var(--primary-blue);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.soll-search-bar .search-btn:hover {
+  background: var(--primary-blue-hover);
+}
+
+/* Standard Pagination */
+.soll-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.soll-pagination button {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.soll-pagination button:hover {
+  border-color: var(--primary-blue);
+  color: var(--primary-blue);
+}
+
+.soll-pagination button.active {
+  background: var(--primary-blue);
+  color: white;
+  border-color: var(--primary-blue);
+}
+
+/* Standard Small Product Images */
+.soll-small-images {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  justify-content: center;
+}
+
+.soll-small-image {
+  width: 80px;
+  height: 80px;
+  background: var(--bg-accent);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--text-light);
+}
+
+.soll-small-image:hover {
+  transform: scale(1.05);
+  border-color: var(--primary-blue);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Standard Documentation Icons */
+.soll-doc-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease;
+  color: var(--primary-blue);
+}
+
+.soll-doc-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Standard Grid Layouts */
+.soll-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  align-items: center;
+}
+
+.soll-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.soll-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+/* Standard Container */
+.soll-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Standard Form Layout */
+.soll-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.soll-form-full {
+  grid-column: 1 / -1;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .soll-grid-4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .soll-hero-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .soll-hero-text h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .soll-grid-3,
+  .soll-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .soll-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .soll-section-header::after {
+    width: 50px;
+    height: 2px;
+  }
+  
+  .soll-btn-primary {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+  }
+  
+  .soll-product-card {
+    padding: 1.25rem;
+  }
+  
+  .soll-search-bar {
+    padding: 1.25rem;
+  }
+  
+  .soll-search-bar .search-row {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .soll-form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .soll-hero-text h1 {
+    font-size: 1.75rem;
+  }
+  
+  .soll-section-header h2 {
+    font-size: 1.75rem;
+  }
+  
+  .soll-section {
+    padding: 2rem 0;
+  }
+  
+  .soll-hero-section {
+    padding: 2rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .soll-grid-3,
+  .soll-grid-4 {
+    grid-template-columns: 1fr;
+  }
+  
+  .soll-small-images {
+    gap: 0.75rem;
+  }
+  
+  .soll-small-image {
+    width: 60px;
+    height: 60px;
+    font-size: 1.25rem;
+  }
+  
+  .soll-hero-text h1 {
+    font-size: 1.5rem;
+  }
+  
+  .soll-section-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .soll-section {
+    padding: 1.5rem 0;
+  }
+  
+  .soll-hero-section {
+    padding: 1.5rem 0;
+  }
+}
+
+/* Focus States for Accessibility */
+.soll-btn-primary:focus,
+.soll-form-input:focus,
+.soll-product-card:focus {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+}

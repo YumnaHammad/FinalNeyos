@@ -1,0 +1,30 @@
+.group2 {
+    display: flex;
+    gap: 0.5vw;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0;
+    align-items: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .SecurityTablink{
+    margin: 0%;
+    text-decoration: none;
+  }
+  .SecurityTablink:hover{
+    text-decoration: none;
+  }
+
+  Link:hover{
+    text-decoration: none;
+  }
+@media (max-width: 768px) {
+    .group2 {
+      flex-direction: column;
+      height: auto;
+    }
+}

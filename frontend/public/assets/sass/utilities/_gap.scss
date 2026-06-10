@@ -1,0 +1,8 @@
+@use "../abstracts/variable" as *;  // Imports the variables
+
+// Gap Css
+@each $property, $value in $spaces {
+    .gap-#{$property} {
+      gap: var(--size-#{$property}) !important;
+    }
+  }

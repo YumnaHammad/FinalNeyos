@@ -1,0 +1,12 @@
+.Banner{
+         width: 100%;
+        height: 80vh;
+        display: flex;
+        align-items: center;
+}
+
+@media screen and (max-width: 480px){
+    .Banner{
+        height: 42vh;
+    }
+}

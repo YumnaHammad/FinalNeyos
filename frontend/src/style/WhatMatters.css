@@ -1,0 +1,113 @@
+.center-wrap {
+  margin: 0 auto;
+  padding: 60px 15px;
+}
+
+.content-left .title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #333;
+}
+
+.content-left .text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+.content-left .bold {
+  font-weight: 600;
+}
+
+.center-wrap .card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100% !important;
+}
+
+.center-wrap .card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(https://www.milesight.com/static/pc/en/company/our-brand-new/make-sensing-matter-bg4.png?t=1747099307706);
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+.center-wrap .card__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.center-wrap .card__title .blue {
+  color: #0066cc;
+}
+
+.center-wrap .card__icon {
+  padding: 20px 10px;
+}
+
+.center-wrap .icon__text {
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #444;
+  margin-top: 15px;
+}
+
+.center-wrap .card__text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+  text-align: center;
+  margin-top: 30px;
+}
+
+/* Animation classes */
+.center-wrap .animate__animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.center-wrap .animate__fadeInUp {
+  animation-name: fadeInUp;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .content-left {
+    margin-bottom: 40px;
+    padding-right: 0 !important;
+  }
+
+  .content-left .title {
+    font-size: 2rem;
+  }
+
+  .card__icon {
+    margin-bottom: 20px;
+  }
+}

@@ -1,0 +1,74 @@
+/* styles/BlogCard.module.css */
+.blogCard {
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+}
+
+.blogCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.blogImage {
+  height: 200px;
+  object-fit: cover;
+}
+
+.categoryBadges {
+  margin-bottom: 10px;
+}
+
+.categoryBadge {
+  margin-right: 5px;
+  padding: 5px 10px;
+  background-color: #0d6efd;
+  color: white;
+  font-size: 0.75rem;
+  border-radius: 20px;
+}
+
+.blogTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.blogExcerpt {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blogMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.blogDate {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.readMoreBtn {
+  background-color: #0d6efd;
+  color: white;
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-size: 0.8rem;
+}
+
+.readMoreBtn:hover {
+  background-color: #0b5ed7;
+  color: white;
+}

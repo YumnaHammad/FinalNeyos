@@ -1,0 +1,29 @@
+/* .SmartCardtitle::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: .313rem solid #c1c1c1;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+}
+.SmartCardtitle::before {
+    border-color: #0299f4;
+    transform: translateY(-50%) scale(2);
+    transition: all .4s;
+} */
+
+.Smartcards::before{
+        content: "";
+    width: 0;
+    height: 99%;
+    left: -5px;
+    top: 1.25rem;
+    position: absolute;
+    border-left: .0625rem dashed #c1c1c1;
+}
+.leading-tight{
+font-size: 22px;
+}

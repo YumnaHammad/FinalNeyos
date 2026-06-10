@@ -1,0 +1,135 @@
+.swiper-container-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  position: relative;
+  top: 65px;
+  margin-top: 50px;
+}
+
+@media (min-width: 480px) {
+  .swiper-container-wrapper {
+    flex-flow: row nowrap;
+  }
+}
+
+.swiper-container.gallery-top {
+  width: 60%;
+  height: 100%;
+  margin-right: 10px;
+}
+
+@media (min-width: 480px) {
+  .swiper-container.gallery-top {
+    width: 60%;
+    height: 100%;
+    margin-right: 10px;
+  }
+}
+
+.swiper-container.gallery-thumbs {
+  width: 40%;
+  height: 350px;
+  padding: 0;
+}
+
+@media (min-width: 480px) {
+  .swiper-container.gallery-thumbs {
+    width: 40%;
+    height: 350px;
+    padding: 0;
+  }
+}
+
+.gallery-thumbs .swiper-wrapper {
+  flex-direction: row;
+}
+
+@media (min-width: 480px) {
+  .gallery-thumbs .swiper-wrapper {
+    flex-direction: column;
+  }
+}
+
+.gallery-thumbs .swiper-slide {
+  width: 25%;
+  opacity: 0.75;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 480px) {
+  .gallery-thumbs .swiper-slide {
+    width: 100%;
+  }
+}
+
+.gallery-thumbs .swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+.swiper-slide {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide .title,
+.swiper-slide .description {
+  opacity: 0;
+  transition: opacity 0.5s ease 0.5s;
+}
+
+.swiper-slide-active .title {
+  font-size: 24px;
+  color: #000;
+  margin-bottom: 0.5rem;
+  opacity: 1;
+  transition: opacity 0.5s ease 0.5s;
+}
+
+.swiper-slide-active .description {
+  font-size: 16px;
+  color: #777;
+  opacity: 1;
+  transition: opacity 0.5s ease 0.75s;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #ffffff;
+}
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-family: swiper-icons;
+  text-transform: none !important;
+  letter-spacing: 0;
+  font-variant: initial;
+  line-height: 1;
+  font-size: 25px;
+  font-weight: 900;
+}
+.detail-pageslider {
+  background-image: url(https://www.milesight.com/static/pc/en/security/product/ai-motorized-mini-dome/banner.jpg?t=1743673918941);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .detail-pageslider .container-lg {
+    padding-left: 50px !important;
+    padding-top: 50px !important;
+  }
+  .swiper-container.gallery-top {
+    width: 100%;
+  }
+  .swiper-container.gallery-thumbs {
+    width: 100%;
+  }
+}

@@ -1,0 +1,15 @@
+
+.Feature_heading{
+  padding: 18px 0px;
+}
+                                        /* responsive */
+@media screen and (max-width: 480px){
+
+  .Features_circles {
+    flex-direction: column;
+    align-items: center;
+  }
+  .Feature_heading{
+  padding: 20px 0px;
+}
+}
