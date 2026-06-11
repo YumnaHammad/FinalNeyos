@@ -15,6 +15,7 @@ exports.listCategories = async (req, res) => {
         categories.map((c) => ({
           id: c._id,
           category: c.name,
+          slug: c.slug,
           image: c.image,
         }))
       );
@@ -27,7 +28,18 @@ exports.listCategories = async (req, res) => {
 
 exports.getCategoryBySlug = async (req, res) => {
   try {
-    const category = await Category.findOne({ slug: req.params.slug });
+    const raw = decodeURIComponent(req.params.slug || '');
+    const slugParam = slugify(raw);
+
+    let category =
+      (slugParam && (await Category.findOne({ slug: slugParam }))) ||
+      (raw && (await Category.findOne({ slug: raw })));
+
+    if (!category && raw) {
+      const escaped = raw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      category = await Category.findOne({ name: new RegExp(`^${escaped}$`, 'i') });
+    }
+
     if (!category) return res.status(404).json({ message: 'Category not found' });
     res.json(category);
   } catch (err) {

@@ -11,6 +11,8 @@ exports.listProducts = async (req, res) => {
   try {
     const filter = {};
     if (req.query.categorySlug) filter.categorySlug = req.query.categorySlug;
+    if (req.query.subCategorySlug) filter.subCategorySlug = req.query.subCategorySlug;
+    if (req.query.subSubCategorySlug) filter.subSubCategorySlug = req.query.subSubCategorySlug;
     if (req.query.active !== '0') filter.isActive = true;
 
     const products = await Product.find(filter).sort({ sortOrder: 1, title: 1 });
@@ -34,7 +36,19 @@ exports.listProducts = async (req, res) => {
 
 exports.getProduct = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const param = decodeURIComponent(req.params.id || '');
+    let product = null;
+
+    if (/^[a-f0-9]{24}$/i.test(param)) {
+      product = await Product.findById(param);
+    }
+
+    if (!product && param) {
+      product =
+        (await Product.findOne({ slug: param })) ||
+        (await Product.findOne({ slug: slugify(param) }));
+    }
+
     if (!product) return res.status(404).json({ message: 'Product not found' });
     res.json(product);
   } catch (err) {
@@ -44,38 +58,99 @@ exports.getProduct = async (req, res) => {
 
 exports.searchListLegacy = async (_req, res) => {
   try {
-    res.json([
-      {
-        id: 1,
-        attribute: 'Resolution',
-        items: [
-          { id: 1, item: '4MP' },
-          { id: 2, item: '8MP' },
-        ],
-      },
-      {
-        id: 2,
-        attribute: 'Type',
-        items: [
-          { id: 3, item: 'Dome' },
-          { id: 4, item: 'Bullet' },
-          { id: 5, item: 'PTZ' },
-        ],
-      },
-    ]);
+    const FilterConfig = require('../models/FilterConfig');
+    const groups = await FilterConfig.find({ isActive: { $ne: false } }).sort({
+      sortOrder: 1,
+      attribute: 1,
+    });
+    if (groups.length > 0) {
+      return res.json(
+        groups.map((g, idx) => ({
+          id: g._id || idx + 1,
+          attribute: g.attribute,
+          items: (g.items || []).map((item, i) => ({
+            id: item._id || i + 1,
+            item: item.item,
+          })),
+        }))
+      );
+    }
+    const filterDefaults = require('../constants/filterDefaults');
+    return res.json(
+      filterDefaults.map((g, idx) => ({
+        id: idx + 1,
+        attribute: g.attribute,
+        items: (g.items || []).map((item, i) => ({ id: i + 1, item: item.item })),
+      }))
+    );
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+};
+
+exports.updateSpecifications = async (req, res) => {
+  try {
+    const product = await Product.findByIdAndUpdate(
+      req.params.id,
+      {
+        specifications: req.body.specifications || {},
+        filterTags: req.body.filterTags || [],
+      },
+      { new: true, runValidators: true }
+    );
+    if (!product) return res.status(404).json({ message: 'Product not found' });
+    res.json(product);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+const assertUniqueInFamily = async (data, excludeId) => {
+  if (!data.subSubCategorySlug) {
+    const err = new Error('Product family (3rd sub-category) is required');
+    err.status = 400;
+    throw err;
+  }
+  if (data.model) {
+    const modelQuery = {
+      model: data.model,
+      categorySlug: data.categorySlug || '',
+      subCategorySlug: data.subCategorySlug || '',
+      subSubCategorySlug: data.subSubCategorySlug,
+    };
+    if (excludeId) modelQuery._id = { $ne: excludeId };
+    const dupModel = await Product.findOne(modelQuery);
+    if (dupModel) {
+      const err = new Error(
+        `Model "${data.model}" already exists in this product family (${data.subSubCategorySlug})`
+      );
+      err.status = 400;
+      throw err;
+    }
+  }
+  const slug = data.slug ? slugify(data.slug) : '';
+  if (slug) {
+    const slugQuery = { slug };
+    if (excludeId) slugQuery._id = { $ne: excludeId };
+    const dupSlug = await Product.findOne(slugQuery);
+    if (dupSlug) {
+      const err = new Error(`URL slug "${slug}" is already used by another product`);
+      err.status = 400;
+      throw err;
+    }
   }
 };
 
 exports.createProduct = async (req, res) => {
   try {
     const data = { ...req.body };
-    if (!data.slug && data.title) data.slug = slugify(data.title);
+    if (!data.slug && data.model) data.slug = slugify(data.model);
+    if (data.slug) data.slug = slugify(data.slug);
+    await assertUniqueInFamily(data);
     const product = await Product.create(data);
     res.status(201).json(product);
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(err.status || 400).json({ message: err.message });
   }
 };
 
@@ -83,6 +158,7 @@ exports.updateProduct = async (req, res) => {
   try {
     const data = { ...req.body };
     if (data.slug) data.slug = slugify(data.slug);
+    await assertUniqueInFamily(data, req.params.id);
     const product = await Product.findByIdAndUpdate(req.params.id, data, {
       new: true,
       runValidators: true,
@@ -90,7 +166,7 @@ exports.updateProduct = async (req, res) => {
     if (!product) return res.status(404).json({ message: 'Product not found' });
     res.json(product);
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(err.status || 400).json({ message: err.message });
   }
 };
 

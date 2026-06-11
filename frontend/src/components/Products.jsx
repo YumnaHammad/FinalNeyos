@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
-import API, { resolveMediaUrl } from '../../api';
-import SectionHeader from '../ui/SectionHeader';
+import API, { resolveMediaUrl } from '../api';
+import { categoryPath } from '../utils/slugify';
+import SectionHeader from './ui/SectionHeader';
 import miniCAmeraGroup from '../assets/images/nexyos/miniCAmeraGroup.png';
 
 const ITEMS_PER_PAGE = 8;
@@ -14,14 +15,14 @@ const Products = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    API.get('/product/categories')
-      .then((res) => {
-        const data = Array.isArray(res.data) ? res.data : res.data?.data || [];
-        setCategories(data);
-      })
+    API.get('/categories')
+      .then((res) => setCategories(Array.isArray(res.data) ? res.data : []))
       .catch(() => {
-        API.get('/categories?legacy=1')
-          .then((res) => setCategories(Array.isArray(res.data) ? res.data : []))
+        API.get('/product/categories')
+          .then((res) => {
+            const data = Array.isArray(res.data) ? res.data : res.data?.data || [];
+            setCategories(data);
+          })
           .catch(() => setCategories([]));
       })
       .finally(() => setLoading(false));
@@ -32,11 +33,7 @@ const Products = () => {
   const visible = categories.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   const goToCategory = (item) => {
-    const name = item.category || item.name;
-    const slug = item.slug || name;
-    navigate(`/category/${encodeURIComponent(slug)}`, {
-      state: { categoryId: item.id || item._id },
-    });
+    navigate(categoryPath(item));
   };
 
   return (

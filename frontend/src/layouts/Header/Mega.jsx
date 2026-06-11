@@ -1,84 +1,65 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import API, { resolveMediaUrl } from "../../api";
+import { categoryPath, familyPath, slugify } from "../../utils/slugify";
 import "../../style/Mega.css";
 
 const Mega = () => {
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
-  const [subCategoriesMap, setSubCategoriesMap] = useState({});
-  const [activeCategory, setActiveCategory] = useState(null);
-  const [activeSubCategory, setActiveSubCategory] = useState(null);
-  const [thirdLevelMap, setThirdLevelMap] = useState({});
+  const [activeCategoryId, setActiveCategoryId] = useState(null);
+  const [activeSubSlug, setActiveSubSlug] = useState(null);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchAllData = async () => {
-      try {
-        const res = await fetch(
-          "https://portal.nexyos.com/api/product/categories"
-        );
-        const categoriesData = await res.json();
-        setCategories(categoriesData);
-
-        const subCategoriesObj = {};
-        await Promise.all(
-          categoriesData.map(async (category) => {
-            const resSub = await fetch(
-              `https://portal.nexyos.com/api/product/sub_categories/${category.id}`
-            );
-            const subData = await resSub.json();
-            subCategoriesObj[category.id] = subData;
-          })
-        );
-        setSubCategoriesMap(subCategoriesObj);
-      } catch (err) {
-        console.error("Error fetching categories or subcategories:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAllData();
+    API.get("/categories")
+      .then((res) => {
+        const data = Array.isArray(res.data) ? res.data : [];
+        setCategories(data);
+        if (data.length > 0) {
+          setActiveCategoryId(String(data[0]._id));
+          const firstSub = data[0].subCategories?.[0];
+          setActiveSubSlug(firstSub?.slug || null);
+        }
+      })
+      .catch(() => setCategories([]))
+      .finally(() => setLoading(false));
   }, []);
 
-  const handleSubCategoryHover = async (subCategoryId) => {
-    setActiveSubCategory(subCategoryId);
+  const activeCategory =
+    categories.find((c) => String(c._id) === String(activeCategoryId)) || null;
+  const subCategories = activeCategory?.subCategories || [];
+  const activeSub =
+    subCategories.find((s) => s.slug === activeSubSlug) || subCategories[0] || null;
+  const thirdLevel = activeSub?.subSubCategories || [];
 
-    if (thirdLevelMap[activeCategory]?.[subCategoryId]) return;
-
-    try {
-      const res = await fetch(
-        `https://portal.nexyos.com/api/product/third_level_cat/${activeCategory}/${subCategoryId}`
-      );
-      const data = await res.json();
-      setThirdLevelMap((prev) => ({
-        ...prev,
-        [activeCategory]: {
-          ...(prev[activeCategory] || {}),
-          [subCategoryId]: data,
-        },
-      }));
-    } catch (error) {
-      console.error("Error fetching third-level subcategories:", error);
-    }
+  const handleCategoryHover = (category) => {
+    setActiveCategoryId(String(category._id));
+    const firstSub = category.subCategories?.[0];
+    setActiveSubSlug(firstSub?.slug || null);
   };
 
-  const handleCategoryHover = (categoryId) => {
-    setActiveCategory(categoryId);
-    setActiveSubCategory(
-      subCategoriesMap[categoryId] ? subCategoriesMap[categoryId][0]?.id : null
-    );
+  const handleSubCategoryHover = (sub) => {
+    setActiveSubSlug(sub.slug);
   };
 
   const handleMouseLeave = () => {
-    if (activeCategory) {
-      setActiveSubCategory(
-        subCategoriesMap[activeCategory]
-          ? subCategoriesMap[activeCategory][0]?.id
-          : null
-      );
+    if (categories.length > 0) {
+      setActiveCategoryId(String(categories[0]._id));
+      const firstSub = categories[0].subCategories?.[0];
+      setActiveSubSlug(firstSub?.slug || null);
     }
+  };
+
+  const goToCategory = (item) => {
+    navigate(categoryPath(item));
+  };
+
+  const goToFamily = (ssub) => {
+    const subSubSlug = ssub.slug || slugify(ssub.name);
+    if (!subSubSlug || !activeCategory || !activeSub) return;
+    navigate(familyPath(activeCategory.slug, activeSub.slug, subSubSlug));
   };
 
   return (
@@ -103,16 +84,14 @@ const Mega = () => {
                   categories.map((item) => (
                     <li
                       className="maga-categories"
-                      key={item.id}
-                      onMouseEnter={() => handleCategoryHover(item.id)}
-                      onClick={() =>
-                        navigate(`/category/${item.category}`, {
-                          state: { categoryId: item.id },
-                        })
-                      }
+                      key={item._id}
+                      onMouseEnter={() => handleCategoryHover(item)}
+                      onClick={() => goToCategory(item)}
                       style={{ cursor: "pointer" }}
                     >
-                      <Link to="#">{item.category}</Link>
+                      <Link to={categoryPath(item)} onClick={(e) => e.preventDefault()}>
+                        {item.name}
+                      </Link>
                     </li>
                   ))
                 ) : (
@@ -123,18 +102,26 @@ const Mega = () => {
 
             <div className="nav-column subcategory">
               <ul>
-                {activeCategory && subCategoriesMap[activeCategory] ? (
-                  subCategoriesMap[activeCategory].map((sub) => (
+                {subCategories.length > 0 ? (
+                  subCategories.map((sub) => (
                     <li
-                      key={sub.id}
+                      key={sub.slug || sub.name}
                       className={`mega-subCategory ${
-                        sub.id === activeSubCategory ? "active" : ""
+                        sub.slug === activeSub?.slug ? "active" : ""
                       }`}
-                      onMouseEnter={() => handleSubCategoryHover(sub.id)}
+                      onMouseEnter={() => handleSubCategoryHover(sub)}
                     >
-                      <img src={sub.image} alt="" />
-                      <Link to={`/sub-category/${sub.id}`}>
-                        {sub.sub_category}
+                      {sub.image && (
+                        <img src={resolveMediaUrl(sub.image)} alt="" />
+                      )}
+                      <Link
+                        to={activeCategory ? categoryPath(activeCategory) : "#"}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (activeCategory) goToCategory(activeCategory);
+                        }}
+                      >
+                        {sub.name}
                       </Link>
                     </li>
                   ))
@@ -146,31 +133,21 @@ const Mega = () => {
 
             <div className="nav-column-sub-sub-category">
               <ul className="third-level flex">
-                {activeCategory &&
-                activeSubCategory &&
-                thirdLevelMap[activeCategory]?.[activeSubCategory]?.length >
-                  0 ? (
-                  thirdLevelMap[activeCategory][activeSubCategory].map(
-                    (item) => (
-                      <li
-                        key={item.id}
-                        onClick={() => navigate(`/product`)}
-                        style={{ cursor: "pointer" }}
-                      >
-                         <Link >
-                        <img
-                          src={`https://portal.nexyos.com/${item.image}`}
-                          alt={item.third_level}
-                        />
-                        
-                      {item.third_level}
+                {thirdLevel.length > 0 ? (
+                  thirdLevel.map((item, idx) => (
+                    <li
+                      key={item.slug || idx}
+                      onClick={() => goToFamily(item)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <Link to="#" onClick={(e) => e.preventDefault()}>
+                        {item.name}
                       </Link>
-                      </li>
-                    )
-                  )
+                    </li>
+                  ))
                 ) : (
                   <li>
-                    <span>No sub-sub-categories</span>
+                    <span>No models available</span>
                   </li>
                 )}
               </ul>

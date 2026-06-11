@@ -55,10 +55,22 @@ const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/nexyos');
     console.log('Connected to MongoDB Successfully');
+    const FilterConfig = require('./models/FilterConfig');
+    try {
+      await FilterConfig.collection.dropIndex('attribute_1');
+    } catch {
+      /* legacy index may not exist */
+    }
+    await FilterConfig.syncIndexes();
   } catch (err) {
     console.error('Database connection error:', err.message);
+    process.exit(1);
   }
 };
+
+mongoose.connection.on('error', (err) => {
+  console.error('MongoDB runtime error:', err.message);
+});
 
 connectDB();
 

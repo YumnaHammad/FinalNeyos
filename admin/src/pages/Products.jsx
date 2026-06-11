@@ -2,18 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { Download, Loader2 } from 'lucide-react';
-import UniversalManager from '../components/ui/UniversalManager';
-
-const PRODUCT_FIELDS = [
-  { name: 'title', label: 'Product Title' },
-  { name: 'model', label: 'Model Number' },
-  { name: 'slug', label: 'URL Slug' },
-  { name: 'description', label: 'Description', type: 'textarea' },
-  { name: 'image', label: 'Product Image' },
-  { name: 'categorySlug', label: 'Category Slug' },
-  { name: 'subCategorySlug', label: 'Sub-category Slug' },
-  { name: 'subSubCategorySlug', label: 'Product Family Slug' },
-];
+import ProductDetailEditor from '../components/ui/ProductDetailEditor';
 
 export default function Products() {
   const [seeding, setSeeding] = useState(false);
@@ -38,7 +27,10 @@ export default function Products() {
         <div>
           <p className="text-[10px] font-black text-[#006071] uppercase tracking-[0.3em] mb-1">Catalogue</p>
           <h1 className="text-3xl font-black text-gray-900">Products</h1>
-          <p className="text-gray-500 mt-1">Manage product catalogue entries linked to categories.</p>
+          <p className="text-gray-500 mt-1">
+            Edit full product long pages (gallery, specs, resources). Each product maps to{' '}
+            <code>/products/[slug]</code> on the website.
+          </p>
         </div>
         <button
           type="button"
@@ -51,13 +43,7 @@ export default function Products() {
         </button>
       </div>
 
-      <UniversalManager
-        key={refreshKey}
-        title="Products Catalogue"
-        customPath="/api/products"
-        isCollection
-        fields={PRODUCT_FIELDS}
-      />
+      <ProductDetailEditor key={refreshKey} />
     </div>
   );
 }

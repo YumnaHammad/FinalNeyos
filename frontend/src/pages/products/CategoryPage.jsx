@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import miniCAmeraGroup from "../../assets/images/nexyos/miniCAmeraGroup.png";
 import API, { resolveMediaUrl } from "../../api";
+import { familyPath, slugify } from "../../utils/slugify";
+import ProductCatalog from "../../components/products/ProductCatalog";
 import styles from "../../styles/CategoryPage.module.css";
 
 const CARDS_PER_ROW = 4;
@@ -57,7 +59,9 @@ const CategoryPage = () => {
       setCategory(null);
       setSubCategories([]);
       try {
-        const { data } = await API.get(`/categories/${categoryName}`);
+        const { data } = await API.get(
+          `/categories/${encodeURIComponent(categoryName)}`
+        );
         if (!data?.slug && data?.message) {
           setError(data.message);
           return;
@@ -81,14 +85,6 @@ const CategoryPage = () => {
     }
   }, [categoryName]);
 
-  const CARDS_PER_ROW = 4;
-  const pageItems = subCategories.slice(
-    currentPage * CARDS_PER_ROW,
-    currentPage * CARDS_PER_ROW + CARDS_PER_ROW
-  );
-
-  const getSubKey = (item, index) => String(item?._id ?? item?.slug ?? index);
-
   const isSubSelected = (item) =>
     selectedSub &&
     (selectedSub.slug === item.slug ||
@@ -100,15 +96,9 @@ const CategoryPage = () => {
   };
 
   const handleSubSubNavigate = (ssub) => {
-    const slug = ssub.slug || ssub.name;
-    if (!slug) return;
-    navigate(`/products/${encodeURIComponent(slug)}`, {
-      state: {
-        subSubCategory: ssub.name,
-        subCategory: selectedSub?.name,
-        parentCategory: category?.name,
-      },
-    });
+    const subSubSlug = ssub.slug || slugify(ssub.name);
+    if (!subSubSlug || !category?.slug || !selectedSub?.slug) return;
+    navigate(familyPath(category.slug, selectedSub.slug, subSubSlug));
   };
 
   const renderSubcatCards = () => (
@@ -202,6 +192,14 @@ const CategoryPage = () => {
           )}
           <div className={styles.heroAccent} aria-hidden />
         </header>
+
+        {!error && category?.slug && (
+          <ProductCatalog
+            categorySlug={category.slug}
+            categoryName={category.name}
+            categoryData={category}
+          />
+        )}
 
         {error && <p className={styles.error}>{error}</p>}
 

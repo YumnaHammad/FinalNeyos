@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { gsap } from "gsap";
+import API from "../../api";
 import SectionHeader from "../ui/SectionHeader";
 
 const DEFAULT_ITEMS = [

@@ -8,11 +8,13 @@ const {
   updateProduct,
   deleteProduct,
   seedDefaults,
+  updateSpecifications,
 } = require('../controllers/productController');
 
 router.post('/seed', seedDefaults);
 router.get('/search_list', searchListLegacy);
 router.get('/', listProducts);
+router.put('/:id/specifications', updateSpecifications);
 router.get('/:id', getProduct);
 router.post('/', createProduct);
 router.put('/:id', updateProduct);

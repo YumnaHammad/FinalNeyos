@@ -25,11 +25,13 @@ import ProductDetail from "./components/ProductDetail";
 import SalesInquiry from "./components/SalesInquiry";
 // import Login from "./pages/Login";
 // import Signup from "./pages/Signup";
-import Categorycall from "./components/Categorycall";
+import CategoryLayout from "./pages/products/CategoryLayout";
+import ProductDetailPage from "./pages/products/ProductDetailPage";
 import ProCamera from "./components/ProCamera";
 import Solution from "./pages/Solution/index";
 import SollPage from "./components/SollPage";
-import ProductsPage from "./pages/Products/ProductsEnhanced";
+import SubSubCategoryPage from "./pages/products/SubSubCategoryPage";
+import AllProductsPage from "./pages/products/AllProductsPage";
 import SubCategoryPage from "./components/SubCategoryPage";
 import HALOSmartSensor from "./pages/Solution/HALOSmartSensor";
 import Smart_HVAC_Management from "./pages/Solution/Smart_HVAC_Management";
@@ -78,11 +80,16 @@ function App() {
     <Route key={route.path} {...route} />
   ))}
         <Route path="/" element={<Home />} />
-        <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/products/:slug" element={<ProductDetailPage />} />
+        <Route path="/products/legacy/:id" element={<ProductDetail />} />
         <Route path="/products" element={<ProductPage />} />
-        <Route path="/all-products" element={<ProductsPage />} />
+        <Route path="/all-products" element={<AllProductsPage />} />
+        <Route
+          path="/category/:categorySlug/:subCategorySlug/:subSubSlug"
+          element={<SubSubCategoryPage />}
+        />
+        <Route path="/category/:categoryName" element={<CategoryLayout />} />
         <Route path="/sales-inquiry" element={<SalesInquiry />} />
-        <Route path="/category/:categoryName" element={<Categorycall />} />
         <Route path="/sub-category/:id" element={<SubCategoryPage />} />
         <Route path="/product/" element={<ProCamera />} />
         <Route

@@ -20,4 +20,18 @@ module.exports = [
       'Advanced monitoring solutions to ensure security and safety with AI-powered video analytics, facial recognition, and 24/7 surveillance.',
     image: '/assets/images/bg/smart-restroom.jpg',
   },
+  {
+    title: 'People Counting',
+    description:
+      'Accurate tracking of people movement and occupancy trends using AI-based analytics and IoT sensors for better space planning.',
+    image:
+      'https://www.milesight.com/static/pc/en/index-new/solution/people-counting.jpg?t=1742785778708',
+  },
+  {
+    title: 'Smart Parking',
+    description:
+      'Efficient parking management with real-time occupancy data, automated entry systems, and AI-based guidance to reduce wait times.',
+    image:
+      'https://www.milesight.com/static/pc/en/solution/people-counting/occupancy-and-people-counting-solution.jpg?t=1752224588134',
+  },
 ];
