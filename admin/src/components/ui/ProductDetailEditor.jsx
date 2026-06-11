@@ -954,8 +954,8 @@ const ProductDetailEditor = () => {
                       </p>
                     ) : familyFilters.length === 0 ? (
                       <p className="text-sm text-gray-500">
-                        No filter groups for this family yet. Add them under Catalogue →
-                        Specifications → Search Filters, or run Load Default Filters.
+                        No filter groups for this family yet. Run Load Default Filters on Catalogue →
+                        Search List, or add tags after seeding.
                       </p>
                     ) : (
                       <p className="text-sm text-gray-500">

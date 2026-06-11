@@ -9,9 +9,7 @@ import SuccessStoriesSettings from './pages/SuccessStoriesSettings';
 import DynamicSectionPage from './pages/DynamicSectionPage';
 import SolutionsSettings from './pages/SolutionsSettings';
 import Login from './pages/Login';
-import SpecificationsPage from './pages/SpecificationsPage';
-import SubSubCategoryManager from './pages/SubSubCategoryManager';
-
+import SearchListPage from './pages/SearchListPage';
 // Protected Route — admin or vendor
 const ProtectedRoute = ({ children, vendorOnly = false }) => {
   const isLoggedIn =
@@ -118,21 +116,15 @@ function App() {
                       }
                     />
                     <Route
-                      path="/specifications"
+                      path="/search-list"
                       element={
                         <AdminOnlyRoute>
-                          <SpecificationsPage />
+                          <SearchListPage />
                         </AdminOnlyRoute>
                       }
                     />
-                    <Route
-                      path="/specifications/:sscName"
-                      element={
-                        <AdminOnlyRoute>
-                          <SubSubCategoryManager />
-                        </AdminOnlyRoute>
-                      }
-                    />
+                    <Route path="/specifications" element={<Navigate to="/search-list" replace />} />
+                    <Route path="/specifications/*" element={<Navigate to="/search-list" replace />} />
                     <Route
                       path="*"
                       element={

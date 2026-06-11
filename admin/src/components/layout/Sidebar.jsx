@@ -13,7 +13,7 @@ import {
   Database,
   Star,
   Video,
-  Settings2,
+  Search,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -59,10 +59,10 @@ const Sidebar = () => {
       submenu: [
         { name: 'Categories', icon: Box, path: '/categories-settings' },
         { name: 'Products', icon: Box, path: '/products' },
+        { name: 'Search List', icon: Search, path: '/search-list' },
         { name: 'Industry Solutions', icon: Briefcase, path: '/solutions-settings' },
       ],
     },
-    { name: 'Specifications', icon: Settings2, path: '/specifications' },
   ];
 
   const vendorMenuItems = [{ name: 'Products', icon: Box, path: '/products' }];
