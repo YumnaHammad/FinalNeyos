@@ -47,7 +47,8 @@ export default function BlogsSettings() {
         api.get('/blogs', { params: { admin: 1, limit: 100 } }),
         api.get('/blogs/categories/list'),
       ]);
-      setPosts(postsRes.data.items || postsRes.data || []);
+      const postsData = postsRes.data?.items ?? postsRes.data;
+      setPosts(Array.isArray(postsData) ? postsData : []);
       setCategories(Array.isArray(catsRes.data) ? catsRes.data : []);
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to load blogs');
