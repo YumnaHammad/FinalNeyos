@@ -10,30 +10,19 @@ import SuccessStoriesSettings from './pages/SuccessStoriesSettings';
 import DynamicSectionPage from './pages/DynamicSectionPage';
 import Login from './pages/Login';
 import SearchListPage from './pages/SearchListPage';
-// Protected Route — admin or vendor
-const ProtectedRoute = ({ children, vendorOnly = false }) => {
+import BlogsSettings from './pages/BlogsSettings';
+import NewsSettings from './pages/NewsSettings';
+import EventsSettings from './pages/EventsSettings';
+
+const ProtectedRoute = ({ children }) => {
   const isLoggedIn =
     localStorage.getItem('isLoggedIn') === 'true' ||
     localStorage.getItem('isAdmin') === 'true';
-  const role = localStorage.getItem('userRole') || 'admin';
 
   if (!isLoggedIn) {
     return <Navigate to="/login" replace />;
   }
 
-  if (vendorOnly && role !== 'vendor') {
-    return <Navigate to="/" replace />;
-  }
-
-  return children;
-};
-
-// Vendor cannot access admin-only routes
-const AdminOnlyRoute = ({ children }) => {
-  const role = localStorage.getItem('userRole') || 'admin';
-  if (role === 'vendor') {
-    return <Navigate to="/products" replace />;
-  }
   return children;
 };
 
@@ -47,12 +36,7 @@ function App() {
           element={
             localStorage.getItem('isLoggedIn') === 'true' ||
             localStorage.getItem('isAdmin') === 'true' ? (
-              <Navigate
-                to={
-                  localStorage.getItem('userRole') === 'vendor' ? '/products' : '/'
-                }
-                replace
-              />
+              <Navigate to="/" replace />
             ) : (
               <Login />
             )
@@ -67,71 +51,20 @@ function App() {
                 <Sidebar />
                 <div className="flex-1 overflow-x-hidden">
                   <Routes>
-                    <Route
-                      path="/"
-                      element={
-                        <AdminOnlyRoute>
-                          <Dashboard />
-                        </AdminOnlyRoute>
-                      }
-                    />
-                    <Route
-                      path="/section/:num"
-                      element={
-                        <AdminOnlyRoute>
-                          <DynamicSectionPage />
-                        </AdminOnlyRoute>
-                      }
-                    />
-                    <Route
-                      path="/vendors"
-                      element={
-                        <AdminOnlyRoute>
-                          <Vendors />
-                        </AdminOnlyRoute>
-                      }
-                    />
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/section/:num" element={<DynamicSectionPage />} />
+                    <Route path="/vendors" element={<Vendors />} />
                     <Route path="/products" element={<Products />} />
-                    <Route
-                      path="/categories-settings"
-                      element={
-                        <AdminOnlyRoute>
-                          <CategoriesSettings />
-                        </AdminOnlyRoute>
-                      }
-                    />
-                    <Route
-                      path="/success-settings"
-                      element={
-                        <AdminOnlyRoute>
-                          <SuccessStoriesSettings />
-                        </AdminOnlyRoute>
-                      }
-                    />
-                    <Route
-                      path="/search-list"
-                      element={
-                        <AdminOnlyRoute>
-                          <SearchListPage />
-                        </AdminOnlyRoute>
-                      }
-                    />
+                    <Route path="/categories-settings" element={<CategoriesSettings />} />
+                    <Route path="/success-settings" element={<SuccessStoriesSettings />} />
+                    <Route path="/search-list" element={<SearchListPage />} />
+                    <Route path="/blogs-settings" element={<BlogsSettings />} />
+                    <Route path="/news-settings" element={<NewsSettings />} />
+                    <Route path="/events-settings" element={<EventsSettings />} />
                     <Route path="/solutions-settings" element={<Navigate to="/" replace />} />
                     <Route path="/specifications" element={<Navigate to="/search-list" replace />} />
                     <Route path="/specifications/*" element={<Navigate to="/search-list" replace />} />
-                    <Route
-                      path="*"
-                      element={
-                        <Navigate
-                          to={
-                            localStorage.getItem('userRole') === 'vendor'
-                              ? '/products'
-                              : '/'
-                          }
-                          replace
-                        />
-                      }
-                    />
+                    <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
                 </div>
               </div>

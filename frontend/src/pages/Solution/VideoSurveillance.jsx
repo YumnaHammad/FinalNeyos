@@ -114,6 +114,8 @@ const VideoSurveillance = () => {
   return (
     <SolutionDetailLayout
       title={BannerData?.heading || META.label}
+      shortTitle={META.label}
+      relatedGroupId="security"
       subtitle={BannerData?.sub_heading || META.desc}
       image={BannerData?.image || META.heroImage}
       badge={META.groupTitle}

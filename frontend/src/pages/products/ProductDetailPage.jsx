@@ -200,6 +200,16 @@ const ProductDetailPage = () => {
 
               <h1 className={styles.productTitle}>{product.title}</h1>
 
+              {keyFeatures.length > 0 && (
+                <ul className={styles.featuresList}>
+                  {keyFeatures.map((feature, idx) => (
+                    <li key={idx} className={styles.featureItem} title={feature}>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              )}
+
               {product.featureIcons?.length > 0 && (
                 <div className={styles.iconRow}>
                   {product.featureIcons.map((icon, idx) => (
@@ -209,14 +219,6 @@ const ProductDetailPage = () => {
                   ))}
                 </div>
               )}
-
-              <div className={styles.featuresGrid}>
-                {keyFeatures.map((feature, idx) => (
-                  <p key={idx} className={styles.featureItem}>
-                    {feature}
-                  </p>
-                ))}
-              </div>
 
               <div className={styles.actions}>
                 <Link

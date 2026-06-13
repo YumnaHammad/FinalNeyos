@@ -1,0 +1,120 @@
+.legal-page {
+  background: #fff;
+  color: #1e293b;
+}
+
+.legal-page__body {
+  width: 100%;
+  padding: 2.5rem 0 4rem;
+}
+
+.legal-page__doc-title {
+  font-size: clamp(1.25rem, 2.5vw, 1.65rem);
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #0f172a;
+  margin: 0 0 0.5rem;
+}
+
+.legal-page__updated {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0 0 2rem;
+}
+
+.legal-page__intro,
+.legal-page section p,
+.legal-page section li {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: #475569;
+  margin: 0 0 1rem;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.legal-page__toc {
+  margin: 2rem 0 2.5rem;
+  padding: 1.25rem 1.5rem;
+  list-style: decimal;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+}
+
+.legal-page__toc li {
+  margin-bottom: 0.45rem;
+  text-align: left;
+}
+
+.legal-page__toc a {
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+
+.legal-page__toc a:hover {
+  text-decoration: underline;
+}
+
+.legal-page section {
+  margin-top: 2.5rem;
+  scroll-margin-top: 6rem;
+}
+
+.legal-page section h2 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 1.15rem;
+  text-align: left;
+}
+
+.legal-page section ul {
+  padding-left: 1.5rem;
+  margin: 0 0 1rem;
+}
+
+.legal-page section a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.legal-page section a:hover {
+  text-decoration: underline;
+}
+
+.legal-page__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 3rem;
+  font-size: 0.875rem;
+  color: #006071;
+  text-decoration: none;
+}
+
+.legal-page__back:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 992px) {
+  .legal-page__body {
+    padding: 3rem 0 5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .legal-page__body {
+    padding: 1.75rem 0 3rem;
+  }
+
+  .legal-page__intro,
+  .legal-page section p,
+  .legal-page section li {
+    text-align: left;
+  }
+}

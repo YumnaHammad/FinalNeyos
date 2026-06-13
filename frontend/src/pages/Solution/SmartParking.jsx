@@ -172,6 +172,8 @@ const SmartParking = () => {
   return (
     <SolutionDetailLayout
       title={section1Data?.heading || "Turn Every Parking Asset Into A Connected Mobility Hub"}
+      shortTitle={META.label}
+      relatedGroupId="smart"
       subtitle={
         section1Data?.description ||
         "Nexyos Smart Parking synchronizes sensors, guidance, enforcement, and revenue intelligence so cities and enterprises can boost mobility, meet sustainability goals, and delight drivers."

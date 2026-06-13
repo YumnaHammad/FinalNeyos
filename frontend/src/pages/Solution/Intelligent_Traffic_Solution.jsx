@@ -56,6 +56,8 @@ const Intelligent_Traffic_Solution = () => {
   return (
     <SolutionDetailLayout
       title={hero?.heading || META.label}
+      shortTitle={META.label}
+      relatedGroupId="mobility"
       subtitle={hero?.description || META.desc}
       image={hero?.image || META.heroImage}
       badge={META.groupTitle}

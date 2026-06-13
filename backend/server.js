@@ -37,6 +37,9 @@ const categoryRoutes = require('./routes/categoryRoutes');
 const solutionRoutes = require('./routes/solutionRoutes');
 const filterConfigRoutes = require('./routes/filterConfigRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
+const blogRoutes = require('./routes/blogRoutes');
+const newsRoutes = require('./routes/newsRoutes');
+const eventRoutes = require('./routes/eventRoutes');
 
 app.use('/api/vendors', vendorRoutes);
 app.use('/api/products', productRoutes);
@@ -44,6 +47,9 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/solutions', solutionRoutes);
 app.use('/api/filter-config', filterConfigRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/blogs', blogRoutes);
+app.use('/api/news', newsRoutes);
+app.use('/api/events', eventRoutes);
 app.use('/api', sectionRoutes);
 
 app.get('/', (req, res) => {

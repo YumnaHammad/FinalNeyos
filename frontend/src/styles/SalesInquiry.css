@@ -1,0 +1,238 @@
+/* Sales inquiry — Hikvision-style layout */
+.sales-inquiry-page {
+  background: #fff;
+  padding: 2rem 0 4rem;
+}
+
+.sales-inquiry-page__breadcrumb {
+  max-width: 720px;
+  margin: 0 auto 1.5rem;
+  padding: 4.5rem 1.25rem 0;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.sales-inquiry-page__breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0.25rem;
+}
+
+.sales-inquiry-page__breadcrumb a {
+  color: #006071;
+  text-decoration: none;
+}
+
+.sales-inquiry-page__breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.sales-inquiry-page__breadcrumb span {
+  color: #334155;
+  font-weight: 600;
+}
+
+.sales-inquiry-page__sep {
+  color: #cbd5e1;
+  margin: 0 0.15rem;
+}
+
+.sales-inquiry-page__inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.sales-inquiry-page__title {
+  text-align: center;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 2rem;
+}
+
+/* Form sections */
+.sales-form__section {
+  margin-bottom: 2rem;
+}
+
+.sales-form__section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 1rem;
+}
+
+.sales-form__required {
+  color: #dc2626;
+}
+
+.sales-form__radio-group {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.sales-form__radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.9rem;
+  color: #334155;
+  cursor: pointer;
+}
+
+.sales-form__radio input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: #006071;
+  cursor: pointer;
+}
+
+.sales-form__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 576px) {
+  .sales-form__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sales-form__field--full {
+    grid-column: 1 / -1;
+  }
+}
+
+.sales-form__field label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #64748b;
+  margin-bottom: 0.35rem;
+}
+
+.sales-form__field input,
+.sales-form__field select,
+.sales-form__field textarea {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+  color: #1e293b;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.sales-form__field input::placeholder,
+.sales-form__field textarea::placeholder {
+  color: #94a3b8;
+}
+
+.sales-form__field input:focus,
+.sales-form__field select:focus,
+.sales-form__field textarea:focus {
+  border-color: #006071;
+}
+
+.sales-form__field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.sales-form__textarea-wrap {
+  position: relative;
+}
+
+.sales-form__char-count {
+  position: absolute;
+  bottom: 0.65rem;
+  right: 0.75rem;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.sales-form__error {
+  font-size: 0.75rem;
+  color: #dc2626;
+  margin-top: 0.25rem;
+}
+
+.sales-form__product-note {
+  background: #f0fdfa;
+  border: 1px solid #99f6e4;
+  border-radius: 0.35rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  color: #0f766e;
+  margin-bottom: 1rem;
+}
+
+.sales-form__checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+}
+
+.sales-form__checkbox-row input {
+  margin-top: 0.2rem;
+  accent-color: #006071;
+  flex-shrink: 0;
+}
+
+.sales-form__checkbox-row label {
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.sales-form__privacy {
+  font-size: 0.82rem;
+  color: #64748b;
+  line-height: 1.55;
+  margin: 0 0 1.5rem;
+}
+
+.sales-form__privacy a {
+  color: #006071;
+  text-decoration: none;
+}
+
+.sales-form__privacy a:hover {
+  text-decoration: underline;
+}
+
+.sales-form__submit-wrap {
+  text-align: center;
+}
+
+.sales-form__submit {
+  background: #e5756a;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.75rem 3.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.sales-form__submit:hover {
+  background: #d4655a;
+}
+
+.sales-form__submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}

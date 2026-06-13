@@ -60,6 +60,8 @@ const EnergyEfficiency = () => {
   return (
     <SolutionDetailLayout
       title={section1?.heading || META.label}
+      shortTitle={META.label}
+      relatedGroupId="smart"
       subtitle={section1?.description || META.desc}
       image={section1?.image || META.heroImage}
       badge={section1?.badge || META.groupTitle}

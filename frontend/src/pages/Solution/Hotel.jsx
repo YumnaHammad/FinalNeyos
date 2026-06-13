@@ -172,6 +172,8 @@ const securityTabs = [
   return (
     <SolutionDetailLayout
       title="Smart People Counting Solution for Different Applications"
+      shortTitle={META.label}
+      relatedGroupId="security"
       subtitle="The Reliable People Counter Makes Decisions Smart"
       image="https://www.milesight.com/static/pc/en/solution/people-counting/occupancy-and-people-counting-solution.jpg?t=1754899499415"
       badge={META.groupTitle}

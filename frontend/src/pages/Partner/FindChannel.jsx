@@ -1,57 +1,70 @@
-import React, { useEffect, useState } from "react";
-import BannerModal from "../../components/Company/BannerModal";
-import ChannelPartners from "../../components/Partner/FindAChannel/Channel";
-import Contact from "../../components/Contact";
-import BannerSection from "../../components/BannerSection";
+import { Link } from 'react-router-dom';
+import PartnerChannelFinder from '../../components/Partner/PartnerChannelFinder';
+import Contact from '../../components/Contact';
+import PartnerDetailLayout, {
+  PartnerDetailSection,
+  PartnerStepsGrid,
+} from '../../components/Partner/PartnerDetailLayout';
+import { getPartnerMeta } from '../../config/partnerNav';
 
-const ChannelPage = () => {
-  const [bannerData, setBannerData] = useState(null);
+const META = getPartnerMeta('/Partner/FindChannel');
 
-  const fetchBannerData = async () => {
-    try {
-      const response = await fetch(
-        "https://nexyos.deeptech.pk/api/channel/section-1"
-      );
-      const data = await response.json();
-      setBannerData(Array.isArray(data) ? data[0] : data);
-      console.log("Banner Data:", data);
-    } catch (error) {
-      console.error("Error fetching CCTV partner data:", error);
-    }
-  };
-  // const fetchSectionData = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "https://nexyos.deeptech.pk/api/channel/section-1"
-  //     );
-  //     const data = await response.json();
-  //     setBannerData(Array.isArray(data) ? data : []);
-  //   } catch (error) {
-  //     console.error("Error fetching section data:", error);
-  //   }
-  // };
-  useEffect(() => {
-    // fetchSectionData();
-    fetchBannerData();
-  }, []);
+const STEPS = [
+  {
+    title: 'Search by region',
+    description: 'Browse authorized partners filtered by country, city, or territory.',
+  },
+  {
+    title: 'Compare capabilities',
+    description: "Review each partner's focus areas — surveillance, IoT, integration, and support.",
+  },
+  {
+    title: 'Connect directly',
+    description: 'Reach out for quotes, demos, and local project assistance.',
+  },
+];
+
+export default function FindChannel() {
   return (
-    <>
-      {bannerData && (
-        <BannerSection
-          gradient="none"
-          content="justify-content-left"
-          textAlign="text-left"
-          textColor="text-black"
-          title={bannerData.heading}
-          subtitle={bannerData.description}
-          image={bannerData.image}
-          ImageSize="contain"
-        />
-      )}
-      <ChannelPartners />
-      <Contact />
-    </>
-  );
-};
+    <PartnerDetailLayout
+      title="Find a Channel Partner"
+      shortTitle={META.label}
+      subtitle="Locate Nexyos authorized resellers and integrators worldwide for local sales, deployment, and support."
+      image={META.heroImage}
+      badge={META.groupTitle}
+      relatedGroupId="ecosystem"
+      actions={
+        <a href="#partners" className="partner-detail__btn partner-detail__btn--primary">
+          Browse partners
+        </a>
+      }
+    >
+      <PartnerDetailSection
+        title="How to find the right partner"
+        lead="Work with certified Nexyos partners who know your market and can deliver end-to-end solutions."
+      >
+        <PartnerStepsGrid steps={STEPS} />
+      </PartnerDetailSection>
 
-export default ChannelPage;
+      <div id="partners">
+        <PartnerChannelFinder />
+      </div>
+
+      <PartnerDetailSection alt title="Not listed yet?">
+        <p className="text-center text-muted mb-4">
+          Become an authorized partner or register a project for dedicated support.
+        </p>
+        <div className="d-flex flex-wrap justify-content-center gap-3">
+          <Link to="/Partner/BecomePartner" className="partner-detail__btn partner-detail__btn--primary" style={{ width: 'auto' }}>
+            Become a partner
+          </Link>
+          <Link to="/Partner/ProjectRegistration" className="partner-detail__btn partner-detail__btn--ghost" style={{ width: 'auto', color: '#006071', border: '1.5px solid #006071', background: '#fff' }}>
+            Project registration
+          </Link>
+        </div>
+      </PartnerDetailSection>
+
+      <Contact interestMode="area" />
+    </PartnerDetailLayout>
+  );
+}

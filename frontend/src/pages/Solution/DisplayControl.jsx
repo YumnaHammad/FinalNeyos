@@ -222,6 +222,8 @@ const DisplayControl = () => {
   return (
     <SolutionDetailLayout
       title={section1Data?.heading || "Command Rooms That Think Ahead Of Every Incident"}
+      shortTitle={META.label}
+      relatedGroupId="smart"
       subtitle={
         section1Data?.description ||
         "Nexyos Display & Control orchestrates mission-critical environments with a 360° view of video, IoT, analytics, and workflows—in a single pane optimized for fast, confident decisions."

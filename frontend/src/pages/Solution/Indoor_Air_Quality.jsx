@@ -251,6 +251,8 @@ const Indoor_Air_Quality = () => {
   return (
     <SolutionDetailLayout
       title={header.heading || META.label}
+      shortTitle={META.label}
+      relatedGroupId="smart"
       subtitle={header.desc || META.desc}
       image={header.image || META.heroImage}
       badge={META.groupTitle}

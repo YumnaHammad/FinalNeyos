@@ -21,6 +21,7 @@ const productSchema = new mongoose.Schema(
     variants: { type: [String], default: [] },
     isHot: { type: Boolean, default: false },
     dataSheetUrl: { type: String, default: '' },
+    vendorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Vendor', default: null },
     resources: {
       documents: [
         {

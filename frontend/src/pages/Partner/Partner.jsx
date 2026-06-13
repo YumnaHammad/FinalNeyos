@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
-import BannerModal from "../../components/Company/BannerModal";
 import Contact from "../../components/Contact";
-import "../../style/About.css";
 import AnimatedCards from "../../components/AnimatedCards";
+import PartnerDetailLayout, {
+  PartnerDetailSection,
+  PartnerStatsRow,
+} from "../../components/Partner/PartnerDetailLayout";
+import { partnerNavGroups } from "../../config/partnerNav";
 
 const Partner = () => {
   const [currentImage, setCurrentImage] = useState("default");
@@ -145,12 +148,41 @@ const Partner = () => {
   };
 
   return (
-    <>
-      {/* Section 1: Hero Banner */}
-      <BannerModal 
-        title="Nexyos Partner Program"
-        description="Join our comprehensive partner program designed to support profitable growth with sales, marketing, and technical expertise."
+    <PartnerDetailLayout
+      isLanding
+      showCta={false}
+      title="Nexyos Partner Program"
+      subtitle="Join our comprehensive partner program designed to support profitable growth with sales, marketing, and technical expertise."
+      image="https://www.milesight.com/static/pc/en/company/partner-program/milesight-events.jpg?t=1746582988309"
+      badge="Global Partner Network"
+      actions={
+        <Link to="/Partner/BecomePartner" className="partner-detail__btn partner-detail__btn--primary">
+          Become a partner
+        </Link>
+      }
+    >
+      <PartnerStatsRow
+        stats={[
+          { value: "1200+", label: "Partners worldwide" },
+          { value: "80+", label: "Countries" },
+          { value: "15+", label: "Years experience" },
+        ]}
       />
+
+      <PartnerDetailSection alt title="Explore partner programs">
+        <div className="row g-3">
+          {partnerNavGroups.flatMap((g) => g.items).map((item) => (
+            <div className="col-md-6 col-lg-4" key={item.path}>
+              <Link to={item.path} className="text-decoration-none">
+                <div className="card h-100 border-0 shadow-sm rounded-4 p-4 hover-lift">
+                  <h3 className="h6 fw-bold text-dark mb-2">{item.label}</h3>
+                  <p className="text-muted small mb-0">{item.desc}</p>
+                </div>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </PartnerDetailSection>
 
       {/* Section 2: Partner Program Overview */}
       <section className="py-20 bg-gradient-to-br from-gray-50 to-gray-100 my-5">
@@ -474,9 +506,8 @@ const Partner = () => {
           </div>
         </div>
       </section>
-<AnimatedCards/>
       <Contact />
-    </>
+    </PartnerDetailLayout>
   );
 };
 

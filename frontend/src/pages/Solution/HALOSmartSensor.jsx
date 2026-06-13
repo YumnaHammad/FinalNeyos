@@ -133,6 +133,8 @@ const HALOSmartSensor = () => {
   return (
     <SolutionDetailLayout
       title="HALO Smart Sensor"
+      shortTitle="HALO Smart Sensor"
+      relatedGroupId="smart"
       subtitle="Advanced environmental monitoring and security detection in a single, privacy-compliant device for healthcare, education, and commercial facilities."
       image={bannerImage}
       badge="Smart Buildings"

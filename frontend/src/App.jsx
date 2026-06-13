@@ -17,14 +17,16 @@ import Footer from "./layouts/Footer/Footer";
 import SuccessStories from "./components/SuccessStories";
 import ContactPage from "./pages/ContactPage";
 import Header from "./layouts/Header/Header";
-import BlogDetailPage from "./components/Blog/BlogDetailPage";
+import BlogDetailPage from "./pages/Company/BlogDetailPage";
 import Company from "./pages/Company/Company";
 import Partner from "./pages/Partner/Partner";
 import ProductPage from "./components/ProductPage";
 import ProductDetail from "./components/ProductDetail";
 import SalesInquiry from "./components/SalesInquiry";
-// import Login from "./pages/Login";
-// import Signup from "./pages/Signup";
+import Login from "./pages/Auth/Login";
+import Signup from "./pages/Auth/Signup";
+import PrivacyPolicy from "./pages/Legal/PrivacyPolicy";
+import TermsAndConditions from "./pages/Legal/TermsAndConditions";
 import CategoryLayout from "./pages/products/CategoryLayout";
 import ProductDetailPage from "./pages/products/ProductDetailPage";
 import ProCamera from "./components/ProCamera";
@@ -105,11 +107,15 @@ function App() {
         <Route path="/solution" element={<Solution />} />
         <Route path="/success" element={<SuccessStories />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/blog/:id" element={<BlogDetailPage />} />
+        <Route path="/blog/:slug" element={<BlogDetailPage />} />
         <Route path="/demo" element={<DemoPage />} />
         <Route path="/soll" element={<SollPage />} />
         <Route path="/company" element={<Company />} />
         <Route path="/partner" element={<Partner />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
       </Routes>
       {!hideHeaderFooter && <Footer />}
       {!hideHeaderFooter && <BottomFooter />}

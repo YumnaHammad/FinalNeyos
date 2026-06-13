@@ -137,6 +137,8 @@ const RetailSecurity = () => {
   return (
     <SolutionDetailLayout
       title={BannerData?.heading || META.label}
+      shortTitle={META.label}
+      relatedGroupId="security"
       subtitle={BannerData?.description || META.desc}
       image={BannerData?.image || META.heroImage}
       badge={META.groupTitle}

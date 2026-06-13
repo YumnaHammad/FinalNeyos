@@ -1,246 +1,380 @@
-import React from "react";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+import ContactSection from '../components/Inquiry/ContactSection';
+import '../styles/DemoPage.css';
 
-const heroImage =
-  "https://images.pexels.com/photos/256219/pexels-photo-256219.jpeg?auto=compress&cs=tinysrgb&w=1600";
+const HERO_BG =
+  'https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg?auto=compress&cs=tinysrgb&w=1920';
 
-const demoExperiences = [
+const HERO_DEVICES =
+  'https://www.milesight.com/static/pc/en/online-demo-collection/online-demo-devices.png?t=1744191186348';
+
+const DEMO_CATEGORIES = [
   {
-    title: "AI Video Surveillance",
-    description:
-      "Explore multi-sensor cameras, PTZ, and NVR orchestration with live credentials. See analytics, alerting, and playback in action.",
-    link: "http://ipc.nexyos.com:18082/",
-    creds: "User: nexyos / Password: nexyos2024",
-    image: "https://www.milesight.com/static/pc/en/online-demo-collection/network-camera.png",
+    id: 'video',
+    label: 'Video Surveillance',
+    icon: 'https://www.milesight.com/static/pc/en/online-demo-collection/network-camera.png',
+    featureTitle: 'Enhance Your Video Intelligence',
+    featureDesc:
+      'Experience AI-powered video surveillance with multi-sensor cameras, PTZ control, NVR management, and real-time analytics. Explore how Nexyos helps you monitor, detect, and respond faster across every site.',
+    featureImage:
+      'https://www.milesight.com/static/pc/en/online-demo-collection/video-surveillance-screens.png?t=1744191186348',
+    ctaTitle: 'Nexyos AI Video Platform',
+    learnMoreLink: '/solution',
+    mainDemo: {
+      title: 'Nexyos AI Video Platform',
+      username: 'nexyos',
+      password: 'nexyos2024',
+      link: 'http://ipc.nexyos.com:18082/',
+      bgImage:
+        'https://www.milesight.com/static/pc/en/online-demo-collection/network-camera.png',
+    },
+    scenarios: [
+      {
+        title: 'Traffic Management',
+        image:
+          'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=600&q=80',
+        link: 'http://ipc.nexyos.com:18082/',
+      },
+      {
+        title: 'Retail Analytics',
+        image:
+          'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80',
+        link: 'http://ipc.nexyos.com:18082/',
+      },
+      {
+        title: 'Perimeter Security',
+        image:
+          'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80',
+        link: 'http://ipc.nexyos.com:18082/',
+      },
+      {
+        title: 'Smart Parking',
+        image:
+          'https://images.unsplash.com/photo-1506521781263-da8787639f65?auto=format&fit=crop&w=600&q=80',
+        link: 'http://ipc.nexyos.com:18082/',
+      },
+      {
+        title: 'Industrial Monitoring',
+        image:
+          'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80',
+        link: 'http://ipc.nexyos.com:18082/',
+      },
+      {
+        title: 'Campus Safety',
+        image:
+          'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=600&q=80',
+        link: 'http://ipc.nexyos.com:18082/',
+      },
+    ],
   },
   {
-    title: "Nexyos IoT Cloud",
-    description:
-      "Manage LoRaWAN® devices, dashboards, and automations in a single interface. Understand how data flows from edge to cloud.",
-    link: "http://iot.nexyos.com:18084/",
-    creds: "Demo access with guided walkthrough.",
-    image: "https://www.milesight.com/static/pc/en/online-demo-collection/iot-cloud.png?t=1744191186348",
+    id: 'iot',
+    label: 'Nexyos IoT Cloud',
+    icon: 'https://www.milesight.com/static/pc/en/online-demo-collection/iot-cloud.png?t=1744191186348',
+    featureTitle: 'Enhance Your On-Cloud Decision Making',
+    featureDesc:
+      'Manage LoRaWAN devices, dashboards, and automations in a single interface. Understand how data flows from edge sensors to cloud analytics — and make smarter operational decisions in real time.',
+    featureImage:
+      'https://www.milesight.com/static/pc/en/online-demo-collection/iot-cloud-screens.png?t=1744191186348',
+    ctaTitle: 'Nexyos IoT Cloud',
+    learnMoreLink: '/solution/smart-space',
+    mainDemo: {
+      title: 'Nexyos IoT Cloud',
+      username: 'nexyos',
+      password: 'nexyos2024',
+      link: 'http://iot.nexyos.com:18084/',
+      bgImage:
+        'https://www.milesight.com/static/pc/en/online-demo-collection/iot-cloud.png?t=1744191186348',
+    },
+    scenarios: [
+      {
+        title: 'Indoor Air Quality',
+        image:
+          'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80',
+        link: 'http://iot.nexyos.com:18084/',
+      },
+      {
+        title: 'Waste Management',
+        image:
+          'https://images.unsplash.com/photo-1530587191325-3db51d754f88?auto=format&fit=crop&w=600&q=80',
+        link: 'http://iot.nexyos.com:18084/',
+      },
+      {
+        title: 'Smart City',
+        image:
+          'https://images.unsplash.com/photo-1477959858987-667251144274?auto=format&fit=crop&w=600&q=80',
+        link: 'http://iot.nexyos.com:18084/',
+      },
+      {
+        title: 'Smart Agriculture',
+        image:
+          'https://images.unsplash.com/photo-1625246333195-78d9c038adbc?auto=format&fit=crop&w=600&q=80',
+        link: 'http://iot.nexyos.com:18084/',
+      },
+      {
+        title: 'Smart Building',
+        image:
+          'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
+        link: 'http://iot.nexyos.com:18084/',
+      },
+      {
+        title: 'Smart Space & People Counting',
+        image:
+          'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80',
+        link: 'http://iot.nexyos.com:18084/',
+      },
+    ],
   },
   {
-    title: "LoRaWAN® Gateways",
-    description:
-      "Test gateway provisioning, packet inspection, and multi-tenant management. Validate how quickly you can bring devices online.",
-    link: "http://ptz.nexyos.com:18081/",
-    creds: "User: nexyos / Password: nexyos2024",
-    image: "https://www.milesight.com/static/pc/en/online-demo-collection/ug63-sg50-online-demo.png?t=1744191186348",
+    id: 'gateway',
+    label: 'LoRaWAN Gateway',
+    icon: 'https://www.milesight.com/static/pc/en/online-demo-collection/ug63-sg50-online-demo.png?t=1744191186348',
+    featureTitle: 'Scale Your IoT Network With Confidence',
+    featureDesc:
+      'Test gateway provisioning, packet inspection, and multi-tenant management. Validate how quickly you can bring LoRaWAN devices online and maintain reliable connectivity across large deployments.',
+    featureImage:
+      'https://www.milesight.com/static/pc/en/online-demo-collection/ug63-sg50-online-demo.png?t=1744191186348',
+    ctaTitle: 'LoRaWAN Gateway Demo',
+    learnMoreLink: '/solution',
+    mainDemo: {
+      title: 'LoRaWAN Gateway Console',
+      username: 'nexyos',
+      password: 'nexyos2024',
+      link: 'http://ptz.nexyos.com:18081/',
+      bgImage:
+        'https://www.milesight.com/static/pc/en/online-demo-collection/ug63-sg50-online-demo.png?t=1744191186348',
+    },
+    scenarios: [
+      {
+        title: 'Gateway Provisioning',
+        image:
+          'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80',
+        link: 'http://ptz.nexyos.com:18081/',
+      },
+      {
+        title: 'Network Diagnostics',
+        image:
+          'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80',
+        link: 'http://ptz.nexyos.com:18081/',
+      },
+      {
+        title: 'Multi-Site Deployment',
+        image:
+          'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80',
+        link: 'http://ptz.nexyos.com:18081/',
+      },
+      {
+        title: 'Device Onboarding',
+        image:
+          'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
+        link: 'http://ptz.nexyos.com:18081/',
+      },
+      {
+        title: 'Packet Monitoring',
+        image:
+          'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80',
+        link: 'http://ptz.nexyos.com:18081/',
+      },
+      {
+        title: 'Edge Integration',
+        image:
+          'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80',
+        link: 'http://ptz.nexyos.com:18081/',
+      },
+    ],
   },
   {
-    title: "5G/4G Industrial Router",
-    description:
-      "Experience remote management, VPN configuration, and traffic analytics for enterprise edge connectivity scenarios.",
-    link: "http://nvr.nexyos.com:18089/",
-    creds: "User: nexyos / Password: nexyos2024",
-    image: "https://www.milesight.com/static/pc/en/online-demo-collection/cerllular-router.svg?t=1744191186348",
+    id: 'router',
+    label: '5G/4G Router',
+    icon: 'https://www.milesight.com/static/pc/en/online-demo-collection/cerllular-router.svg?t=1744191186348',
+    featureTitle: 'Connect Every Edge With Reliable Cellular',
+    featureDesc:
+      'Experience remote management, VPN configuration, and traffic analytics for enterprise edge connectivity. See how Nexyos routers keep critical infrastructure online wherever you deploy.',
+    featureImage:
+      'https://www.milesight.com/static/pc/en/online-demo-collection/cerllular-router.svg?t=1744191186348',
+    ctaTitle: '5G/4G Industrial Router',
+    learnMoreLink: '/solution',
+    mainDemo: {
+      title: '5G/4G Industrial Router',
+      username: 'nexyos',
+      password: 'nexyos2024',
+      link: 'http://nvr.nexyos.com:18089/',
+      bgImage:
+        'https://www.milesight.com/static/pc/en/online-demo-collection/cerllular-router.svg?t=1744191186348',
+    },
+    scenarios: [
+      {
+        title: 'Remote Site Connectivity',
+        image:
+          'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80',
+        link: 'http://nvr.nexyos.com:18089/',
+      },
+      {
+        title: 'VPN & Security',
+        image:
+          'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&q=80',
+        link: 'http://nvr.nexyos.com:18089/',
+      },
+      {
+        title: 'Traffic Analytics',
+        image:
+          'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80',
+        link: 'http://nvr.nexyos.com:18089/',
+      },
+      {
+        title: 'Failover & Redundancy',
+        image:
+          'https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=600&q=80',
+        link: 'http://nvr.nexyos.com:18089/',
+      },
+      {
+        title: 'Fleet Management',
+        image:
+          'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80',
+        link: 'http://nvr.nexyos.com:18089/',
+      },
+      {
+        title: 'Industrial IoT Backhaul',
+        image:
+          'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600&q=80',
+        link: 'http://nvr.nexyos.com:18089/',
+      },
+    ],
   },
 ];
 
-const valueHighlights = [
-  {
-    title: "Guided Walkthroughs",
-    detail: "Short videos and annotated tooltips help you evaluate features faster—no prior setup needed.",
-    icon: "https://raw.githubusercontent.com/feathericons/feather/master/icons/compass.svg",
-  },
-  {
-    title: "Real Credentials",
-    detail: "Access live environments with production-grade datasets so you can test realistic scenarios.",
-    icon: "https://raw.githubusercontent.com/feathericons/feather/master/icons/key.svg",
-  },
-  {
-    title: "One Link For Teams",
-    detail: "Share demos securely with stakeholders, partners, and customers to accelerate decision making.",
-    icon: "https://raw.githubusercontent.com/feathericons/feather/master/icons/link.svg",
-  },
-];
+export default function DemoPage() {
+  const [activeId, setActiveId] = useState('iot');
 
-const steps = [
-  {
-    heading: "Select Your Experience",
-    text: "Pick from AI video surveillance, IoT Cloud, LoRaWAN® gateway, or router demos depending on your project focus.",
-  },
-  {
-    heading: "Launch In Minutes",
-    text: "Use the provided credentials to log in instantly—no installation or VPN required.",
-  },
-  {
-    heading: "Collaborate & Evaluate",
-    text: "Capture insights, compare configurations, and invite team members to review workflows together.",
-  },
-  {
-    heading: "Engage Nexyos Experts",
-    text: "Book a follow-up workshop to dive deeper, plan integrations, or request proof-of-concept support.",
-  },
-];
+  const active = DEMO_CATEGORIES.find((c) => c.id === activeId) || DEMO_CATEGORIES[1];
 
-const DemoPage = () => {
   return (
-    <section className="solution-page overflow-hidden pt-5 pb-5 pb-lg-6">
-      <header
-        className="position-relative overflow-hidden mb-5"
-        style={{
-          backgroundImage: `linear-gradient(110deg, rgba(12,55,105,0.88), rgba(22,136,190,0.82)), url(${heroImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="position-absolute top-0 bottom-0 start-0 end-0 bg-dark bg-opacity-25" />
-        <div className="container position-relative text-white py-5 py-lg-6">
-          <div className="row g-4 align-items-center">
-            <div className="col-lg-7" data-aos="fade-right">
-              <span className="badge bg-light text-primary fw-semibold text-uppercase letter-spacing mb-3">
-                Nexyos Online Demo Studio
-              </span>
-              <h1 className="display-4 fw-bold mb-3 lh-sm">Experience Nexyos Solutions Live In Minutes</h1>
-              <p className="lead text-white-75 mb-4">
-                Explore production-grade environments for AI video surveillance, IoT devices, LoRaWAN® gateways, and secure routers.
-                Validate performance, workflows, and integrations before you go on-site.
-              </p>
-              <div className="d-flex flex-wrap gap-3">
-                <a href="#experiences" className="btn btn-warning text-uppercase fw-semibold px-4 shadow-sm">
-                  Browse Demos
-                </a>
-                <a href="/contact" className="btn btn-outline-light text-uppercase fw-semibold px-4">
-                  Plan A Guided Session
-                </a>
-              </div>
-            </div>
-            <div className="col-lg-5" data-aos="fade-left" data-aos-delay="100">
-              <div className="rounded-4 bg-white bg-opacity-10 backdrop-blur-lg border border-white border-opacity-10 shadow-lg p-4">
-                <h2 className="h6 text-white fw-semibold mb-3">Included With Every Demo</h2>
-                <ul className="list-unstyled text-white-75 small mb-0">
-                  <li className="mb-2">• Live data sets, configured devices, and realistic workflows.</li>
-                  <li className="mb-2">• Pre-built dashboards, analytics, and automation playbooks.</li>
-                  <li>• Optional recorded walkthroughs and one-on-one expert consultations.</li>
-                </ul>
-              </div>
-            </div>
+    <div className="demo-page">
+      {/* Hero */}
+      <section className="demo-hero">
+        <img src={HERO_BG} alt="" className="demo-hero__bg" aria-hidden />
+        <div className="demo-hero__overlay" aria-hidden />
+        <div className="container demo-hero__inner">
+          <div data-aos="fade-right">
+            <h1 className="demo-hero__title">Online Demo</h1>
+            <p className="demo-hero__subtitle">
+              Click to experience the powerful performance and explore more possibilities of IoT and
+              Video Surveillance.
+            </p>
           </div>
-        </div>
-      </header>
-
-      <section className="py-5 py-lg-6 container">
-        <div className="row row-cols-1 row-cols-md-3 g-4">
-          {valueHighlights.map((item, index) => (
-            <div className="col" key={item.title} data-aos="fade-up" data-aos-delay={index * 80}>
-              <div className="card h-100 border-0 shadow-sm rounded-4 hover-lift p-4 text-center">
-                <div className="rounded-circle bg-light d-inline-flex align-items-center justify-content-center mb-3 shadow-sm" style={{ width: 70, height: 70 }}>
-                  <img src={item.icon} alt={item.title} style={{ width: 34, height: 34 }} />
-                </div>
-                <h3 className="h5 fw-semibold mb-2">{item.title}</h3>
-                <p className="text-muted mb-0">{item.detail}</p>
-              </div>
-            </div>
-          ))}
+          <div data-aos="fade-left" data-aos-delay="100">
+            <img
+              src={HERO_DEVICES}
+              alt="Nexyos demo on laptop, monitor, tablet and phone"
+              className="demo-hero__devices"
+            />
+          </div>
         </div>
       </section>
 
-      <section id="experiences" className="py-5 py-lg-6 bg-light">
+      {/* Category tabs */}
+      <section className="demo-categories">
         <div className="container">
-          <h2 className="h3 fw-bold text-center mb-4" data-aos="fade-up">
-            Pick Your Live Experience
+          <ul className="demo-categories__list" role="tablist">
+            {DEMO_CATEGORIES.map((cat) => (
+              <li key={cat.id} role="presentation">
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={activeId === cat.id}
+                  className={`demo-categories__btn${activeId === cat.id ? ' demo-categories__btn--active' : ''}`}
+                  onClick={() => setActiveId(cat.id)}
+                >
+                  <span className="demo-categories__icon">
+                    <img src={cat.icon} alt="" />
+                  </span>
+                  <span className="demo-categories__label">{cat.label}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Feature highlight */}
+      <section className="demo-feature" key={`feature-${activeId}`}>
+        <div className="container">
+          <h2 className="demo-feature__title" data-aos="fade-up">
+            {active.featureTitle}
           </h2>
-          <div className="row row-cols-1 row-cols-lg-2 g-4">
-            {demoExperiences.map((demo, index) => (
-              <div className="col" key={demo.title} data-aos="fade-up" data-aos-delay={index * 80}>
-                <div className="card h-100 border-0 rounded-4 shadow-sm overflow-hidden hover-lift">
-                  <div className="ratio ratio-16x9">
-                    <img src={demo.image} alt={demo.title} className="w-100 h-100" style={{ objectFit: "cover" }} />
-                  </div>
-                  <div className="card-body p-4 d-flex flex-column justify-content-between h-100">
-                    <div>
-                      <h3 className="h5 fw-semibold mb-2">{demo.title}</h3>
-                      <p className="text-muted mb-3">{demo.description}</p>
-                      <p className="small text-secondary mb-4">{demo.creds}</p>
-                    </div>
-                    <a
-                      href={demo.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-primary fw-semibold text-uppercase px-4"
-                    >
-                      Launch Demo
-                    </a>
-                  </div>
-                </div>
+          <p className="demo-feature__desc" data-aos="fade-up" data-aos-delay="50">
+            {active.featureDesc}
+          </p>
+          <div className="demo-feature__visual" data-aos="fade-up" data-aos-delay="100">
+            <div className="demo-feature__screens">
+              <img src={active.featureImage} alt={active.featureTitle} />
+            </div>
+            <div className="demo-feature__cta-box">
+              <h3>{active.ctaTitle}</h3>
+              <Link to={active.learnMoreLink} className="demo-feature__learn-more">
+                Learn More
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Demo grid */}
+      <section className="demo-grid-section">
+        <div className="container">
+          <div className="demo-grid" key={`grid-${activeId}`}>
+            <div className="demo-grid__main" data-aos="fade-right">
+              <img
+                src={active.mainDemo.bgImage}
+                alt=""
+                className="demo-grid__main-bg"
+                aria-hidden
+              />
+              <div className="demo-grid__main-content">
+                <h3>{active.mainDemo.title}</h3>
+                <p className="demo-grid__creds">
+                  <strong>Username:</strong> {active.mainDemo.username}
+                  <br />
+                  <strong>Password:</strong> {active.mainDemo.password}
+                </p>
+                <a
+                  href={active.mainDemo.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="demo-grid__trial"
+                >
+                  Free Trial <ArrowRight size={16} />
+                </a>
               </div>
+            </div>
+
+            {active.scenarios.map((scenario, i) => (
+              <a
+                key={scenario.title}
+                href={scenario.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="demo-grid__card"
+                data-aos="fade-up"
+                data-aos-delay={i * 60}
+              >
+                <img src={scenario.image} alt={scenario.title} />
+                <div className="demo-grid__card-overlay">
+                  <p className="demo-grid__card-title">{scenario.title}</p>
+                </div>
+              </a>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-5 py-lg-6 container">
-        <div className="row g-4 align-items-center">
-          <div className="col-lg-5" data-aos="fade-right">
-            <h2 className="h3 fw-bold mb-3">How It Works</h2>
-            <p className="text-muted mb-4">
-              Our demo studio is designed to help teams evaluate technology quickly and collaboratively—before launching a proof of concept.
-            </p>
-          </div>
-          <div className="col-lg-7" data-aos="fade-left">
-            <div className="row row-cols-1 row-cols-md-2 g-3">
-              {steps.map((step, index) => (
-                <div className="col" key={step.heading}>
-                  <div className="card h-100 border-0 shadow-sm rounded-4 hover-lift p-4 d-flex flex-column gap-3">
-                    <div className="rounded-circle bg-primary text-white fw-bold d-flex align-items-center justify-content-center" style={{ width: 44, height: 44 }}>
-                      {index + 1}
-                    </div>
-                    <div>
-                      <h3 className="h6 fw-semibold mb-1">{step.heading}</h3>
-                      <p className="text-muted mb-0 small">{step.text}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-5 py-lg-6 bg-dark text-white">
-        <div className="container">
-          <div className="row g-4 align-items-center">
-            <div className="col-lg-7" data-aos="fade-right">
-              <h2 className="h3 fw-bold mb-3">Need A Customized Demo Journey?</h2>
-              <p className="text-white-75 mb-4">
-                Nexyos experts can assemble end-to-end scenarios for smart cities, campuses, retail, and industrial clients—complete with
-                KPIs, integrations, and ROI modeling.
-              </p>
-              <ul className="text-white-75 small mb-0">
-                <li className="mb-2">Vertical-specific playbooks and best practices.</li>
-                <li className="mb-2">Integration support with VMS, BMS, ERP, and third-party analytics.</li>
-                <li>Executive-ready reports and success criteria to kick-start your project.</li>
-              </ul>
-            </div>
-            <div className="col-lg-5" data-aos="fade-left">
-              <div
-                className="card border-0 h-100 text-dark rounded-4 shadow-lg"
-                style={{
-                  background: "linear-gradient(135deg, rgba(255,247,133,0.95), rgba(255,255,204,0.9))",
-                }}
-              >
-                <div className="card-body p-5 d-flex flex-column justify-content-between h-100">
-                  <div>
-                    <h3 className="h4 fw-semibold mb-3 text-primary">Book A Guided Demo Workshop</h3>
-                    <p className="text-muted mb-4">
-                      Tell us about your use case and we’ll curate the right experiences, datasets, and integration roadmap for your stakeholders.
-                    </p>
-                  </div>
-                  <div className="pt-4">
-                    <a href="/contact" className="btn btn-primary fw-semibold text-uppercase px-4">
-                      Schedule Now
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </section>
+      <ContactSection
+        showSidebar={false}
+        interestMode="area"
+        defaultInterest={active.label}
+      />
+    </div>
   );
-};
-
-export default DemoPage;
+}

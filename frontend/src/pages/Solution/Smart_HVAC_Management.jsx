@@ -27,6 +27,8 @@ const Smart_HVAC_Management = () => {
   return (
     <SolutionDetailLayout
       title="Smart HVAC Management"
+      shortTitle="Smart HVAC Management"
+      relatedGroupId="smart"
       subtitle="Optimize heating, ventilation, and air conditioning across your portfolio with IoT sensors, automation, and real-time analytics."
       image={HERO_IMAGE}
       badge="Smart Buildings"

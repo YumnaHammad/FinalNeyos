@@ -70,9 +70,11 @@ const Education = () => {
   return (
     <SolutionDetailLayout
       title="Design Campuses That Inspire, Safeguard, and Adapt"
+      shortTitle={META.label}
       subtitle="Nexyos unifies safety, digital learning, and building intelligence so institutions can create exceptional experiences for students, faculty, and staff on campus or online."
       image={META.heroImage}
       badge={META.groupTitle}
+      relatedGroupId="mobility"
       actions={
         <>
           <a href="#personas" className="solution-detail__btn solution-detail__btn--primary">
@@ -84,33 +86,41 @@ const Education = () => {
         </>
       }
     >
-      <section id="personas" className="py-5 py-lg-6 container">
-        <h2 className="h3 fw-bold text-center mb-4" data-aos="fade-up">
-          Empower Every Campus Persona
-        </h2>
-        <div className="row row-cols-1 row-cols-md-3 g-4">
-          {personas.map((persona, index) => (
-            <div className="col" key={persona.title} data-aos="fade-up" data-aos-delay={index * 80}>
-              <div className="card h-100 border-0 shadow-sm rounded-4 hover-lift p-4 text-center">
-                <div className="rounded-circle bg-light d-inline-flex align-items-center justify-content-center mb-3 shadow-sm" style={{ width: 70, height: 70 }}>
-                  <img src={persona.icon} alt={persona.title} style={{ width: 32, height: 32 }} />
+      <section id="personas" className="py-5 py-lg-6">
+        <div className="container">
+          <h2 className="h3 fw-bold text-center mb-2" data-aos="fade-up">
+            Empower Every Campus Persona
+          </h2>
+          <p className="text-muted text-center mb-4 mx-auto" style={{ maxWidth: 640 }}>
+            One platform for security, learning technology, and facilities—tailored to how each team works.
+          </p>
+          <div className="row row-cols-1 row-cols-md-3 g-4">
+            {personas.map((persona, index) => (
+              <div className="col" key={persona.title} data-aos="fade-up" data-aos-delay={index * 80}>
+                <div className="card h-100 border-0 shadow-sm rounded-4 hover-lift p-4 text-center">
+                  <div
+                    className="rounded-circle bg-light d-inline-flex align-items-center justify-content-center mb-3 shadow-sm"
+                    style={{ width: 70, height: 70 }}
+                  >
+                    <img src={persona.icon} alt="" style={{ width: 32, height: 32 }} />
+                  </div>
+                  <h3 className="h5 fw-semibold mb-2">{persona.title}</h3>
+                  <p className="text-muted mb-0">{persona.description}</p>
                 </div>
-                <h3 className="h5 fw-semibold mb-2">{persona.title}</h3>
-                <p className="text-muted mb-0">{persona.description}</p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
       <section className="py-5 py-lg-6 bg-light">
         <div className="container">
-          <div className="row g-4">
+          <div className="row g-4 align-items-start">
             <div className="col-lg-5" data-aos="fade-right">
               <h2 className="h3 fw-bold mb-3">Campus Experience Blueprint</h2>
               <p className="text-muted mb-4">
-                Build a hyper-connected campus that supports every moment—from orientation to graduation—while keeping stakeholders safe,
-                informed, and inspired.
+                Build a hyper-connected campus that supports every moment—from orientation to graduation—while keeping
+                stakeholders safe, informed, and inspired.
               </p>
               <ul className="list-unstyled text-muted small mb-0">
                 <li className="mb-2">Unified identity and access across classrooms, labs, and residences.</li>
@@ -122,9 +132,14 @@ const Education = () => {
               <div className="row row-cols-1 row-cols-lg-2 g-4">
                 {experienceMap.map((item) => (
                   <div className="col" key={item.heading}>
-                    <div className="card border-0 rounded-4 shadow-sm overflow-hidden hover-lift">
+                    <div className="card border-0 rounded-4 shadow-sm overflow-hidden hover-lift h-100">
                       <div className="ratio ratio-16x9">
-                        <img src={item.image} alt={item.heading} className="w-100 h-100" style={{ objectFit: "cover" }} />
+                        <img
+                          src={item.image}
+                          alt={item.heading}
+                          className="w-100 h-100"
+                          style={{ objectFit: "cover" }}
+                        />
                       </div>
                       <div className="card-body p-4">
                         <h3 className="h5 fw-semibold mb-2">{item.heading}</h3>
@@ -141,20 +156,23 @@ const Education = () => {
 
       <section className="py-5 py-lg-6">
         <div className="container">
-          <div className="row g-4 align-items-center">
-            <div className="col-lg-6" data-aos="fade-right">
+          <div className="row g-4 align-items-start">
+            <div className="col-lg-5" data-aos="fade-right">
               <h2 className="h3 fw-bold mb-3">Transformation Path</h2>
-              <p className="text-muted mb-4">
-                Partner with Nexyos to co-create a campus transformation plan grounded in measurable student success and operational
-                excellence.
-          </p>
-        </div>
-            <div className="col-lg-6" data-aos="fade-left">
+              <p className="text-muted mb-0">
+                Partner with Nexyos to co-create a campus transformation plan grounded in measurable student success and
+                operational excellence.
+              </p>
+            </div>
+            <div className="col-lg-7" data-aos="fade-left">
               <div className="row row-cols-1 g-3">
                 {path.map((step, index) => (
                   <div className="col" key={step.title}>
                     <div className="card border-0 shadow-sm rounded-4 hover-lift p-4 d-flex flex-column flex-md-row gap-3">
-                      <div className="rounded-circle bg-primary text-white fw-bold d-flex align-items-center justify-content-center" style={{ width: 44, height: 44 }}>
+                      <div
+                        className="rounded-circle bg-primary text-white fw-bold d-flex align-items-center justify-content-center flex-shrink-0"
+                        style={{ width: 44, height: 44 }}
+                      >
                         {index + 1}
                       </div>
                       <div>
@@ -172,12 +190,12 @@ const Education = () => {
 
       <section className="py-5 py-lg-6 bg-dark text-white">
         <div className="container">
-          <div className="row g-4 align-items-center">
+          <div className="row g-4 align-items-stretch">
             <div className="col-lg-7" data-aos="fade-right">
-              <h2 className="h3 fw-bold mb-3">Join Leading Institutions Modernizing With Nexyos</h2>
+              <h2 className="h3 fw-bold mb-3 text-white">Join Leading Institutions Modernizing With Nexyos</h2>
               <p className="text-white-75 mb-4">
-                From K-12 districts to research universities, Nexyos brings the strategy, technology, and services needed to deliver
-                meaningful student outcomes.
+                From K-12 districts to research universities, Nexyos brings the strategy, technology, and services
+                needed to deliver meaningful student outcomes.
               </p>
               <ul className="text-white-75 small mb-0">
                 <li className="mb-2">Student experience innovation labs and design sprints.</li>
@@ -187,29 +205,25 @@ const Education = () => {
             </div>
             <div className="col-lg-5" data-aos="fade-left">
               <div
-                className="card border-0 h-100 text-dark rounded-4 shadow-lg"
+                className="card border-0 text-dark rounded-4 shadow-lg h-100"
                 style={{
-                  background: "linear-gradient(135deg, rgba(255,214,112,0.95), rgba(255,242,204,0.9))",
+                  background: "linear-gradient(135deg, rgba(255,214,112,0.97), rgba(255,242,204,0.95))",
                 }}
               >
-                <div className="card-body p-5 d-flex flex-column justify-content-between h-100">
-                  <div>
-                    <h3 className="h4 fw-semibold mb-3 text-primary">Campus Experience Workshop</h3>
-                    <p className="text-muted mb-4">
-                      Collaborate with Nexyos designers, EdTech experts, and facilities specialists to build a roadmap tailored to your
-                      vision, budget, and modernization timeline.
-                    </p>
-                  </div>
-                  <div className="pt-4">
-                    <a href="/contact" className="btn btn-primary fw-semibold text-uppercase px-4">
-                      Book A Session
-                    </a>
-                  </div>
+                <div className="card-body p-4 p-lg-5 d-flex flex-column">
+                  <h3 className="h4 fw-semibold mb-3 text-primary">Campus Experience Workshop</h3>
+                  <p className="text-muted mb-4 flex-grow-1">
+                    Collaborate with Nexyos designers, EdTech experts, and facilities specialists to build a roadmap
+                    tailored to your vision, budget, and modernization timeline.
+                  </p>
+                  <a href="/contact" className="btn btn-primary fw-semibold text-uppercase px-4 align-self-start">
+                    Book A Session
+                  </a>
                 </div>
               </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
       </section>
     </SolutionDetailLayout>
   );

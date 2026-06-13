@@ -93,6 +93,8 @@ const Smart_Restroom = () => {
   return (
     <SolutionDetailLayout
       title={section1Data?.heading || META.label}
+      shortTitle={META.label}
+      relatedGroupId="smart"
       subtitle={section1Data?.sub_heading || META.desc}
       image={section1Data?.image || META.heroImage}
       badge={META.groupTitle}
