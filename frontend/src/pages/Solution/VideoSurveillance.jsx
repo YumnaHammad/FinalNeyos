@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import SolutionTab from "../../components/Solution/Video_Surveillance/SolutionTab";
 import RelatedProduct from "../../components/Solution/Video_Surveillance/RelatedProduct";
-import BannerSection from "../../components/BannerSection";
+import SolutionDetailLayout from "../../components/Solution/SolutionDetailLayout";
+import { getSolutionMeta } from "../../utils/getSolutionMeta";
+
+const META = getSolutionMeta("/solution/videoSurveillance");
 import WhatWeOfferSection from "../../components/WhatWeOfferSection";
 import HighlightSlider from "../../components/HighlightSlider";
 
@@ -109,19 +112,12 @@ const VideoSurveillance = () => {
     fetchHighlights();
   }, []);
   return (
-    <div>
-      {/* Hero Section */}
-      {BannerData && (
-        <BannerSection
-          gradient="none"
-          content="justify-content-left"
-          textAlign="text-left"
-          textColor="text-[#121535]"
-          title={BannerData.heading}
-          subtitle={BannerData.sub_heading}
-          image={BannerData.image}
-        />
-      )}
+    <SolutionDetailLayout
+      title={BannerData?.heading || META.label}
+      subtitle={BannerData?.sub_heading || META.desc}
+      image={BannerData?.image || META.heroImage}
+      badge={META.groupTitle}
+    >
       {/* WhatWeOffer */}
       {whatOfferData && (
         <WhatWeOfferSection
@@ -143,17 +139,13 @@ const VideoSurveillance = () => {
       {highlights.length > 0 && (
         <HighlightSlider title="Superior Highlights" items={highlights} />
       )}
-      <div>
-        <h2 className="text-center text-2xl font-bold mb-6">
-          Related Products
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-24 px-36">
-          {products.map((product, idx) => (
-            <RelatedProduct key={idx} {...product} />
-          ))}
-        </div>
+      <h2 className="solution-detail__related-title">Related Products</h2>
+      <div className="solution-detail__related-grid">
+        {products.map((product, idx) => (
+          <RelatedProduct key={idx} {...product} />
+        ))}
       </div>
-    </div>
+    </SolutionDetailLayout>
   );
 };
 

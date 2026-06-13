@@ -12,7 +12,10 @@ import { RiSecurePaymentLine } from 'react-icons/ri';
 import { GrShieldSecurity } from 'react-icons/gr';
 import Download from '../../components/Download';
 import ReliableResources from '../../components/Solution/SmartRestroom/ReliableResources';
-import BannerSection from '../../components/BannerSection';
+import SolutionDetailLayout from '../../components/Solution/SolutionDetailLayout';
+import { getSolutionMeta } from '../../utils/getSolutionMeta';
+
+const META = getSolutionMeta('/solution/smartAppartment');
 
 const SmartApartment = () => {
      const [section1Data, setSection1Data] = useState(null);
@@ -144,20 +147,12 @@ const SmartApartment = () => {
     fetchSection3Data();
   }, []);
   return (
-    <>
-      {/* Section 1 - Hero Section from API */}
-      {section1Data && (
-        <BannerSection
-          gradient="none"
-          content="justify-content-center"
-          textAlign="text-center"
-          textColor="text-white"
-          title={section1Data.heading}
-          subtitle={section1Data.paragraph}
-          image={section1Data.image}
-        />
-      )}
-
+    <SolutionDetailLayout
+      title={section1Data?.heading || META.label}
+      subtitle={section1Data?.paragraph || META.desc}
+      image={section1Data?.image || META.heroImage}
+      badge={META.groupTitle}
+    >
       <div className="mt-5">
         {/* Section 2 - Additional Content from API */}
         {section2Data && (
@@ -206,7 +201,7 @@ const SmartApartment = () => {
           />
         )}
       </div>
-    </>
+    </SolutionDetailLayout>
   );
 };
 

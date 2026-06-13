@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import SolutionDetailLayout from "../../components/Solution/SolutionDetailLayout";
+import { getSolutionMeta } from "../../utils/getSolutionMeta";
+
+const META = getSolutionMeta("/solution/Manufacturing");
 
 const normalizeArray = (res) => {
   if (Array.isArray(res)) return res;
@@ -49,34 +53,17 @@ const Manufacturing = () => {
     fetchAll();
   }, []);
 
-  if (loading) return <div className="text-center py-5">Loading...</div>;
+  if (loading) {
+    return <SolutionDetailLayout loading title={META.label} />;
+  }
 
   return (
-    <section className="solution-page overflow-hidden pt-5 pb-5 pb-lg-6">
-
-      {/* HERO - SECTION 1 */}
-      <header
-        className="position-relative overflow-hidden mb-5"
-        style={{
-          backgroundImage: `linear-gradient(110deg, rgba(8,40,90,0.85), rgba(0,118,132,0.82)), url(${section1?.image})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="position-absolute top-0 bottom-0 end-0 start-0 bg-dark bg-opacity-20" />
-        <div className="container position-relative text-white py-5 py-lg-6">
-          <div className="row g-4 align-items-center">
-            <div className="col-lg-7">
-              <span className="badge bg-warning text-dark fw-semibold text-uppercase mb-3">
-                {section1?.badge || "Smart Manufacturing"}
-              </span>
-              <h1 className="display-4 fw-bold mb-3 lh-sm">{section1?.heading}</h1>
-              <p className="lead text-white-75 mb-4">{section1?.description}</p>
-            </div>
-          </div>
-        </div>
-      </header>
-
+    <SolutionDetailLayout
+      title={section1?.heading || META.label}
+      subtitle={section1?.description || META.desc}
+      image={section1?.image || META.heroImage}
+      badge={section1?.badge || META.groupTitle}
+    >
       {/* SECTION 2 - Pillars */}
       <section id="pillars" className="container py-5 py-lg-6">
         <div className="row row-cols-1 row-cols-md-3 g-4">
@@ -166,7 +153,7 @@ const Manufacturing = () => {
           <p className="text-muted">{section5?.description}</p>
         </div>
       </section>
-    </section>
+    </SolutionDetailLayout>
   );
 };
 

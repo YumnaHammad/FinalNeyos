@@ -9,7 +9,7 @@ import {
   Briefcase,
   ChevronRight,
   Zap,
-  Layers,
+  Home,
   Database,
   Star,
   Video,
@@ -20,7 +20,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [openMenus, setOpenMenus] = useState(['Section Manager', 'Catalogue']);
+  const [openMenus, setOpenMenus] = useState(['Landing Page', 'Catalogue']);
 
   const toggleMenu = (name) => {
     setOpenMenus((prev) =>
@@ -41,8 +41,8 @@ const Sidebar = () => {
   const adminMenuItems = [
     { name: 'Dashboard', icon: LayoutDashboard, path: '/' },
     {
-      name: 'Section Manager',
-      icon: Layers,
+      name: 'Landing Page',
+      icon: Home,
       submenu: [
         { name: 'Banner (Sec 1)', icon: ImageIcon, path: '/section/1' },
         { name: 'Sensing Matter (Sec 3)', icon: Zap, path: '/section/3' },
@@ -60,7 +60,6 @@ const Sidebar = () => {
         { name: 'Categories', icon: Box, path: '/categories-settings' },
         { name: 'Products', icon: Box, path: '/products' },
         { name: 'Search List', icon: Search, path: '/search-list' },
-        { name: 'Industry Solutions', icon: Briefcase, path: '/solutions-settings' },
       ],
     },
   ];

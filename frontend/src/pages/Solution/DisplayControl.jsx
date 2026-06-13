@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import SolutionDetailLayout from "../../components/Solution/SolutionDetailLayout";
+import { getSolutionMeta } from "../../utils/getSolutionMeta";
 import heroImage from "../../assets/images/nexyos/CCTVSurveillanceCamerasBg.jpg";
 import featureUnifiedIcon from "../../assets/images/icon/cloudwhite.png";
 import featureAutomationIcon from "../../assets/images/icon/AI.png";
@@ -10,6 +12,8 @@ import operationsImage from "../../assets/images/nexyos/Recorders and Video Mana
 import smartCityImage from "../../assets/images/Solution/solution-for-urban-roadways.jpg";
 import enterpriseImage from "../../assets/images/Solution/solution-for-offices.jpg";
 import controlRoomImage from "../../assets/images/Solution/solution-for-factories.jpg";
+
+const META = getSolutionMeta("/solution/displayControl");
 
 const stats = [
   { label: "Mission Critical Sites", value: "1200+", color: "text-warning" },
@@ -216,64 +220,25 @@ const DisplayControl = () => {
   }, []);
 
   return (
-    <section className="solution-page overflow-hidden pt-5 pb-5 pb-lg-6">
-      {/* Section 1 - Hero Section from API */}
-      <header
-        className="solution-hero display-control position-relative"
-        style={{
-          backgroundImage: section1Data?.image
-            ? `linear-gradient(118deg, rgba(3,48,86,0.92), rgba(17,128,203,0.82)), url(${section1Data.image})`
-            : `linear-gradient(118deg, rgba(3,48,86,0.92), rgba(17,128,203,0.82)), url(${heroImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="container py-5 py-lg-6  text-white">
-          <div className="row align-items-center justify-content-between g-4">
-            <div className="col-lg-7" data-aos="fade-right">
-              
-              <h1 className="display-4 fw-bold mb-3 py-16 lh-sm">
-                {section1Data?.heading || "Command Rooms That Think Ahead Of Every Incident"}
-              </h1>
-              <p className="lead text-white-75 mb-4">
-                {section1Data?.description || "Nexyos Display &amp; Control orchestrates mission-critical environments with a 360° view of video, IoT, analytics, and workflows—in a single pane optimized for fast, confident decisions."}
-              </p>
-              <div className="d-flex gap-3 flex-wrap">
-                <a href="#capabilities" className="btn btn-warning text-uppercase fw-semibold px-4 shadow">
-                  Explore Capabilities
-                </a>
-                <a href="/sales-inquiry" className="btn btn-outline-light text-uppercase fw-semibold px-4">
-                  Book A Live Demo
-                </a>
-              </div>
-            </div>
-            <div className="col-lg-4" data-aos="fade-left" data-aos-delay="120">
-              <div className="p-4 rounded-4 bg-white bg-opacity-10 backdrop-blur-lg border border-white border-opacity-10 shadow-lg">
-                <h2 className="h5 text-white fw-semibold mb-3">Built For Mission Control</h2>
-                <ul className="text-white-75 mb-0 list-unstyled small">
-                  <li className="mb-2 d-flex align-items-start gap-2">
-                    <span className="mt-1 bullet-dot bg-warning"></span>
-                    Smart city operation centers and emergency response hubs
-                  </li>
-                  <li className="mb-2 d-flex align-items-start gap-2">
-                    <span className="mt-1 bullet-dot bg-warning"></span>
-                    Airports, transit authorities, and intelligent transport systems
-                  </li>
-                  <li className="mb-2 d-flex align-items-start gap-2">
-                    <span className="mt-1 bullet-dot bg-warning"></span>
-                    Enterprise campuses and critical infrastructure networks
-                  </li>
-                  <li className="d-flex align-items-start gap-2">
-                    <span className="mt-1 bullet-dot bg-warning"></span>
-                    Defense &amp; security fusion centers with 24/7 coverage
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
+    <SolutionDetailLayout
+      title={section1Data?.heading || "Command Rooms That Think Ahead Of Every Incident"}
+      subtitle={
+        section1Data?.description ||
+        "Nexyos Display & Control orchestrates mission-critical environments with a 360° view of video, IoT, analytics, and workflows—in a single pane optimized for fast, confident decisions."
+      }
+      image={section1Data?.image || heroImage || META.heroImage}
+      badge={META.groupTitle}
+      actions={
+        <>
+          <a href="#capabilities" className="solution-detail__btn solution-detail__btn--primary">
+            Explore Capabilities
+          </a>
+          <a href="/sales-inquiry" className="solution-detail__btn solution-detail__btn--ghost">
+            Book A Live Demo
+          </a>
+        </>
+      }
+    >
       {/* Section 2 - Stats Section from API */}
       <section className="py-5 py-lg-6">
         <div className="container">
@@ -568,7 +533,7 @@ const DisplayControl = () => {
           </div>
         </div>
       </section>
-    </section>
+    </SolutionDetailLayout>
   );
 };
 

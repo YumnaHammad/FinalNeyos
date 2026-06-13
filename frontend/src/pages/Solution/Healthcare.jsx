@@ -18,7 +18,10 @@ import CarouselCard from "../../components/cards/CarouselCard";
 // import south_wales_police from "../../assets/images/Solution/new-south-wales-police-logo.png";
 // import FAT_Logo_Water from "../../assets/images/Solution/FAT-Logo-Watercolor-stacked.jpg";
 // import Chukchansi_Gold_Resort from "../../assets/images/Solution/Chukchansi_Gold_Resort.png";
-import BannerSection from "../../components/BannerSection";
+import SolutionDetailLayout from "../../components/Solution/SolutionDetailLayout";
+import { getSolutionMeta } from "../../utils/getSolutionMeta";
+
+const META = getSolutionMeta("/solution/healthcare");
 
 const Healthcare = () => {
   const [BannerData, setBannerData] = useState(null);
@@ -293,18 +296,12 @@ const fetchCertificateData = async () => {
     fetchCertificateData();
   }, []);
   return (
-    <>
-      {BannerData && (
-        <BannerSection
-          gradient="none"
-          content="justify-content-center"
-          textAlign="text-center"
-          textColor="text-black"
-          title={BannerData.heading}
-          subtitle={BannerData.description}
-          image={BannerData.image}
-        />
-      )}
+    <SolutionDetailLayout
+      title={BannerData?.heading || META.label}
+      subtitle={BannerData?.description || META.desc}
+      image={BannerData?.image || META.heroImage}
+      badge={META.groupTitle}
+    >
       {/* Trusted By Section */}
       <TrustedBy />
 
@@ -357,7 +354,7 @@ const fetchCertificateData = async () => {
           ))}
         </div>
       </section>
-    </>
+    </SolutionDetailLayout>
   );
 };
 

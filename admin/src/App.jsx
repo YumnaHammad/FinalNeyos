@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import Sidebar from './components/layout/Sidebar';
 import Dashboard from './pages/Dashboard';
 import Vendors from './pages/Vendors';
@@ -7,7 +8,6 @@ import Products from './pages/Products';
 import CategoriesSettings from './pages/CategoriesSettings';
 import SuccessStoriesSettings from './pages/SuccessStoriesSettings';
 import DynamicSectionPage from './pages/DynamicSectionPage';
-import SolutionsSettings from './pages/SolutionsSettings';
 import Login from './pages/Login';
 import SearchListPage from './pages/SearchListPage';
 // Protected Route — admin or vendor
@@ -40,6 +40,7 @@ const AdminOnlyRoute = ({ children }) => {
 function App() {
   return (
     <Router>
+      <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
       <Routes>
         <Route
           path="/login"
@@ -108,14 +109,6 @@ function App() {
                       }
                     />
                     <Route
-                      path="/solutions-settings"
-                      element={
-                        <AdminOnlyRoute>
-                          <SolutionsSettings />
-                        </AdminOnlyRoute>
-                      }
-                    />
-                    <Route
                       path="/search-list"
                       element={
                         <AdminOnlyRoute>
@@ -123,6 +116,7 @@ function App() {
                         </AdminOnlyRoute>
                       }
                     />
+                    <Route path="/solutions-settings" element={<Navigate to="/" replace />} />
                     <Route path="/specifications" element={<Navigate to="/search-list" replace />} />
                     <Route path="/specifications/*" element={<Navigate to="/search-list" replace />} />
                     <Route

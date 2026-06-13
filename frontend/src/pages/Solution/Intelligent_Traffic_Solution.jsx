@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import SolutionDetailLayout from "../../components/Solution/SolutionDetailLayout";
+import { getSolutionMeta } from "../../utils/getSolutionMeta";
+
+const META = getSolutionMeta("/solution/IntelligentTrafficSolution");
 
 const normalizeArray = (res) => {
   if (Array.isArray(res)) return res;
@@ -43,35 +47,19 @@ const Intelligent_Traffic_Solution = () => {
     fetchAll();
   }, []);
 
-  if (loading) return <div className="text-center py-5">Loading...</div>;
+  if (loading) {
+    return <SolutionDetailLayout loading title={META.label} />;
+  }
 
   const hero = section1[0];
 
   return (
-    <section className="solution-page overflow-hidden pt-5 pb-5 pb-lg-6">
-      {/* SECTION 1 */}
-      <header
-        className="position-relative overflow-hidden mb-5"
-        style={{
-          backgroundImage: `linear-gradient(128deg, rgba(10,18,74,0.82), rgba(0,140,140,0.85)), url(${hero?.image})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="position-absolute top-0 bottom-0 start-0 end-0 bg-gradient-primary opacity-25" />
-        <div className="container position-relative text-white py-5 py-lg-6">
-          <div className="row g-4 align-items-center">
-            <div className="col-xl-6 col-lg-7" data-aos="fade-right">
-              <span className="badge bg-warning text-dark fw-semibold text-uppercase letter-spacing mb-3">
-                Intelligent Traffic Solution
-              </span>
-              <h1 className="display-4 fw-bold mb-3 lh-sm">{hero?.heading}</h1>
-              <p className="lead text-white-75 mb-4">{hero?.description}</p>
-            </div>
-          </div>
-        </div>
-      </header>
-
+    <SolutionDetailLayout
+      title={hero?.heading || META.label}
+      subtitle={hero?.description || META.desc}
+      image={hero?.image || META.heroImage}
+      badge={META.groupTitle}
+    >
       {/* SECTION 2 */}
       <section className="py-5 py-lg-6">
         <div className="container">
@@ -156,7 +144,7 @@ const Intelligent_Traffic_Solution = () => {
           </div>
         </div>
       </section>
-    </section>
+    </SolutionDetailLayout>
   );
 };
 

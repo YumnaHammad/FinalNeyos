@@ -14,6 +14,7 @@ import { RiContactsBook3Line } from "react-icons/ri";
 import { AiOutlineProduct } from "react-icons/ai";
 import "rsuite/dist/rsuite.min.css";
 import Mega from "./Mega";
+import SolutionsMegaMenu from "./SolutionsMegaMenu";
 import { X, ChevronRight, ChevronLeft } from "lucide-react";
 import { IoHomeOutline } from "react-icons/io5";
 import logo from '../../assets/images/logo/logo.png'
@@ -502,149 +503,8 @@ const Header = () => {
                         <Link to="/solution" className="nav-menu__link">
                           Solutions
                         </Link>
-                        <div className="on-hover-dropdown common-dropdown nav-megamenu" style={{ textAlign: 'left', zIndex: 1000 }}>
-                          <div className="grid grid-cols-3 gap-6 p-6">
-                            {/* Column 1 - Security & Surveillance */}
-                            <div>
-                              <h6 className="fs-6 pt-3 text-gray-800 font-semibold">Security & Surveillance</h6>
-                              <ul>
-                                <li>
-                                  <NavLink
-                                    to="/solution/videoSurveillance"
-                                    className="common-dropdown__link"
-                                  >
-                                    Video Surveillance
-                                  </NavLink>
-                                </li>
-                                <li>
-                                  <NavLink
-                                    to="/solution/citySurveillance"
-                                    className="common-dropdown__link"
-                                  >
-                                    City Surveillance
-                                  </NavLink>
-                                </li>
-                                <li>
-                                  <NavLink
-                                    to="/solution/healthcare"
-                                    className="common-dropdown__link"
-                                  >
-                                    Healthcare
-                                  </NavLink>
-                                </li>
-                                <li>
-                                  <NavLink
-                                    to="/solution/hotel"
-                                    className="common-dropdown__link"
-                                  >
-                                    Hotel
-                                  </NavLink>
-                                </li>
-                                <li>
-                                  <NavLink
-                                    to="/solution/retailsecurity"
-                                    className="common-dropdown__link"
-                                  >
-                                    Retail Security
-                                  </NavLink>
-                                </li>
-                              </ul>
-                            </div>
-
-                            {/* Column 2 - Smart Infrastructure */}
-                            <div>
-                              <h6 className="fs-6 pt-3 text-gray-800 font-semibold">Smart Infrastructure</h6>
-                              <ul>
-                                <li>
-                                  <NavLink
-                                    to="/solution/smartrestroom"
-                                    className="common-dropdown__link"
-                                  >
-                                    Smart Restroom
-                                  </NavLink>
-                                </li>
-                                <li>
-                                  <NavLink
-                                    to="/solution/smartSpace"
-                                    className="common-dropdown__link"
-                                  >
-                                    Smart Space
-                                  </NavLink>
-                                </li>
-                                <li>
-                                  <NavLink
-                                    to="/solution/smartAppartment"
-                                    className="common-dropdown__link"
-                                  >
-                                    Smart Apartment
-                                  </NavLink>
-                                </li>
-                                <li>
-                                  <NavLink
-                                    to="/solution/displayControl"
-                                    className="common-dropdown__link"
-                                  >
-                                    Display & Control
-                                  </NavLink>
-                                </li>
-                                <li>
-                                  <NavLink
-                                    to="/solution/smartParking"
-                                    className="common-dropdown__link"
-                                  >
-                                    Smart Parking
-                                  </NavLink>
-                                </li>
-                              </ul>
-                            </div>
-
-                            {/* Column 3 - Industrial & Transportation */}
-                            <div>
-                              <h6 className="fs-6 pt-3 text-gray-800 font-semibold">Industrial & Transportation</h6>
-                              <ul>
-                                <li>
-                                  <NavLink
-                                    to="/solution/IntelligentTrafficSolution"
-                                    className="common-dropdown__link"
-                                  >
-                                    Intelligent Traffic Solution
-                                  </NavLink>
-                                </li>
-                                <li>
-                                  <NavLink
-                                    to="/solution/Manufacturing"
-                                    className="common-dropdown__link"
-                                  >
-                                    Manufacturing
-                                  </NavLink>
-                                </li>
-                                <li>
-                                  <NavLink
-                                    to="/solution/Education"
-                                    className="common-dropdown__link"
-                                  >
-                                    Education
-                                  </NavLink>
-                                </li>
-                                <li>
-                                  <NavLink
-                                    to="/solution/IndoorAirQuality"
-                                    className="common-dropdown__link"
-                                  >
-                                    Indoor Air Quality
-                                  </NavLink>
-                                </li>
-                                <li>
-                                  <NavLink
-                                    to="/solution/EnergyEfficiency"
-                                    className="common-dropdown__link"
-                                  >
-                                    Energy Efficiency
-                                  </NavLink>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
+                        <div className="on-hover-dropdown common-dropdown nav-megamenu solutions-megamenu-wrap" style={{ textAlign: 'left', zIndex: 1000 }}>
+                          <SolutionsMegaMenu />
                         </div>
                       </li>
                       <li className="nav-menu__item">

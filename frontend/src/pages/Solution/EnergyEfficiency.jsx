@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import SolutionDetailLayout from "../../components/Solution/SolutionDetailLayout";
+import { getSolutionMeta } from "../../utils/getSolutionMeta";
+
+const META = getSolutionMeta("/solution/EnergyEfficiency");
 
 const normalizeArray = (res) => {
   if (Array.isArray(res)) return res;
@@ -49,34 +53,17 @@ const EnergyEfficiency = () => {
     fetchAll();
   }, []);
 
-  if (loading) return <div className="text-center py-5">Loading...</div>;
+  if (loading) {
+    return <SolutionDetailLayout loading title={META.label} />;
+  }
 
   return (
-    <section className="solution-page overflow-hidden pt-5 pb-5 pb-lg-6">
-
-      {/* SECTION 1 — HERO */}
-      <header
-        className="position-relative overflow-hidden mb-5"
-        style={{
-          backgroundImage: `linear-gradient(125deg, rgba(10,64,68,0.88), rgba(37,179,162,0.85)), url(${section1?.image})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="position-absolute top-0 bottom-0 start-0 end-0 bg-dark bg-opacity-25" />
-        <div className="container position-relative text-white py-5 py-lg-6">
-          <div className="row g-4 align-items-center">
-            <div className="col-lg-7">
-              <span className="badge bg-warning text-dark fw-semibold text-uppercase mb-3">
-                {section1?.badge || "Energy Efficiency"}
-              </span>
-              <h1 className="display-4 fw-bold mb-3 lh-sm">{section1?.heading}</h1>
-              <p className="lead text-white-75 mb-4">{section1?.description}</p>
-            </div>
-          </div>
-        </div>
-      </header>
-
+    <SolutionDetailLayout
+      title={section1?.heading || META.label}
+      subtitle={section1?.description || META.desc}
+      image={section1?.image || META.heroImage}
+      badge={section1?.badge || META.groupTitle}
+    >
       {/* SECTION 2 — OUTCOMES */}
       <section className="py-5 py-lg-6 container">
         <div className="row row-cols-1 row-cols-md-3 g-4">
@@ -171,7 +158,7 @@ const EnergyEfficiency = () => {
           <p className="text-muted mb-4">{section6?.description}</p>
         </div>
       </section>
-    </section>
+    </SolutionDetailLayout>
   );
 };
 

@@ -1,4 +1,5 @@
 const FilterConfig = require('../models/FilterConfig');
+const Product = require('../models/Product');
 
 const slugify = (text) =>
   String(text || '')
@@ -16,6 +17,29 @@ const toLegacyShape = (groups) =>
       item: item.item,
     })),
   }));
+
+const syncFamilyProductTags = async (scope) => {
+  if (!scope?.subSubCategorySlug) return;
+  const groups = await FilterConfig.find({
+    categorySlug: scope.categorySlug || '',
+    subCategorySlug: scope.subCategorySlug || '',
+    subSubCategorySlug: scope.subSubCategorySlug,
+  });
+  const valid = new Set();
+  groups.forEach((g) => (g.items || []).forEach((i) => valid.add(String(i.item).toLowerCase())));
+  const products = await Product.find({
+    categorySlug: scope.categorySlug || '',
+    subCategorySlug: scope.subCategorySlug || '',
+    subSubCategorySlug: scope.subSubCategorySlug,
+  });
+  for (const product of products) {
+    const next = (product.filterTags || []).filter((t) => valid.has(String(t).toLowerCase()));
+    if (next.length !== (product.filterTags || []).length) {
+      product.filterTags = next;
+      await product.save();
+    }
+  }
+};
 
 exports.listFilters = async (req, res) => {
   try {
@@ -82,6 +106,11 @@ exports.updateFilter = async (req, res) => {
       runValidators: true,
     });
     if (!group) return res.status(404).json({ message: 'Filter group not found' });
+    await syncFamilyProductTags({
+      categorySlug: group.categorySlug,
+      subCategorySlug: group.subCategorySlug,
+      subSubCategorySlug: group.subSubCategorySlug,
+    });
     res.json(group);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -92,6 +121,11 @@ exports.deleteFilter = async (req, res) => {
   try {
     const group = await FilterConfig.findByIdAndDelete(req.params.id);
     if (!group) return res.status(404).json({ message: 'Filter group not found' });
+    await syncFamilyProductTags({
+      categorySlug: group.categorySlug,
+      subCategorySlug: group.subCategorySlug,
+      subSubCategorySlug: group.subSubCategorySlug,
+    });
     res.json({ message: 'Filter group deleted' });
   } catch (err) {
     res.status(500).json({ message: err.message });

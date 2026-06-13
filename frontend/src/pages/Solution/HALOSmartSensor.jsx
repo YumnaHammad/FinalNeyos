@@ -13,7 +13,7 @@ import { TbDeviceAnalytics } from "react-icons/tb";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { MdOutlineIntegrationInstructions } from "react-icons/md";
 import { BiSupport } from "react-icons/bi";
-import BannerSection from '../../components/BannerSection';
+import SolutionDetailLayout from '../../components/Solution/SolutionDetailLayout';
 
 const HALOSmartSensor = () => {
 
@@ -131,17 +131,12 @@ const HALOSmartSensor = () => {
   ];
   
   return (
-    <>
-     {/* Hero Section */}
-        <BannerSection
-          gradient="none"
-          content="justify-content-center"
-          textAlign="text-center"
-          textColor="text-white"
-          title="HALO Smart Sensor"
-          subtitle="Advanced environmental monitoring and security detection in a single, privacy-compliant device for healthcare, education, and commercial facilities."
-          image={bannerImage}
-        />
+    <SolutionDetailLayout
+      title="HALO Smart Sensor"
+      subtitle="Advanced environmental monitoring and security detection in a single, privacy-compliant device for healthcare, education, and commercial facilities."
+      image={bannerImage}
+      badge="Smart Buildings"
+    >
       {/* Trusted By Section */}
       <TrustedBy />
       
@@ -192,7 +187,7 @@ const HALOSmartSensor = () => {
           </div>
         </div>
       </div>
-    </>
+    </SolutionDetailLayout>
   );
 };
 

@@ -138,22 +138,6 @@ const ProductCatalog = ({
     return list;
   }, [products, searchTerm, activeApiFilters]);
 
-  const visibleApiFilters = useMemo(() => {
-    const usedTags = new Set();
-    products.forEach((p) => {
-      (p.filterTags || []).forEach((t) => usedTags.add(t.toLowerCase()));
-    });
-    return apiFilters
-      .map((group) => ({
-        ...group,
-        items: (group.items || []).filter((item) => {
-          if (products.length === 0) return true;
-          return usedTags.has(String(item.item).toLowerCase());
-        }),
-      }))
-      .filter((group) => group.items.length > 0);
-  }, [apiFilters, products]);
-
   const totalPages = Math.max(1, Math.ceil(filteredProducts.length / itemsPerPage));
   const displayed = filteredProducts.slice(
     (currentPage - 1) * itemsPerPage,
@@ -319,7 +303,7 @@ const ProductCatalog = ({
             </div>
           )}
 
-          {visibleApiFilters.map((group) => (
+          {apiFilters.map((group) => (
             <div key={group._id || group.slug} className={styles.filterGroup}>
               <button
                 type="button"

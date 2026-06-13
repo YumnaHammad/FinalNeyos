@@ -80,7 +80,6 @@ const ProductDetailEditor = () => {
   const [filterCategory, setFilterCategory] = useState('');
   const [filterSub, setFilterSub] = useState('');
   const [filterSubSub, setFilterSubSub] = useState('');
-  const [familyFilters, setFamilyFilters] = useState([]);
 
   const fetchAll = async () => {
     setLoading(true);
@@ -126,23 +125,6 @@ const ProductDetailEditor = () => {
     };
   };
 
-  useEffect(() => {
-    if (!form.subSubCategorySlug) {
-      setFamilyFilters([]);
-      return;
-    }
-    axios
-      .get('/api/filter-config', {
-        params: {
-          categorySlug: form.categorySlug,
-          subCategorySlug: form.subCategorySlug,
-          subSubCategorySlug: form.subSubCategorySlug,
-        },
-      })
-      .then((res) => setFamilyFilters(Array.isArray(res.data) ? res.data : []))
-      .catch(() => setFamilyFilters([]));
-  }, [form.categorySlug, form.subCategorySlug, form.subSubCategorySlug]);
-
   const openModal = (mode, item = null) => {
     setModal(mode);
     setFormTab('basic');
@@ -170,11 +152,22 @@ const ProductDetailEditor = () => {
   };
 
   const saveProduct = async (e) => {
-    e.preventDefault();
-    if (!form.title?.trim()) return toast.error('Product title is required');
-    if (!form.slug?.trim()) return toast.error('URL slug is required');
-    if (!form.subSubCategorySlug)
-      return toast.error('Product family (3rd sub-category) is required');
+    e?.preventDefault?.();
+    if (!form.title?.trim()) {
+      toast.error('Product title is required — open Basic & Category tab');
+      setFormTab('basic');
+      return;
+    }
+    if (!form.slug?.trim()) {
+      toast.error('URL slug is required — open Basic & Category tab');
+      setFormTab('basic');
+      return;
+    }
+    if (!form.subSubCategorySlug) {
+      toast.error('Product family (3rd sub-category) is required — open Basic & Category tab');
+      setFormTab('basic');
+      return;
+    }
 
     setSaving(true);
     const toastId = toast.loading('Saving product…');
@@ -278,7 +271,6 @@ const ProductDetailEditor = () => {
     { id: 'hero', label: 'Hero & Gallery' },
     { id: 'specs', label: 'Specifications' },
     { id: 'resources', label: 'Resources' },
-    { id: 'filters', label: 'Filter Tags' },
   ];
 
   if (loading) {
@@ -437,11 +429,6 @@ const ProductDetailEditor = () => {
                           <p className="font-bold text-gray-900">{p.model || p.slug}</p>
                           <p className="text-sm text-gray-500 truncate">{p.title}</p>
                           <p className="text-xs text-[#006071] mt-1">/products/{p.slug}</p>
-                          {(p.filterTags || []).length > 0 && (
-                            <p className="text-[10px] text-gray-400 mt-1 truncate">
-                              Filters: {(p.filterTags || []).join(' · ')}
-                            </p>
-                          )}
                         </div>
                         <div className="flex gap-2 flex-wrap">
                           <a
@@ -488,6 +475,7 @@ const ProductDetailEditor = () => {
               onClick={() => setModal(null)}
             />
             <motion.form
+              noValidate
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
@@ -620,10 +608,8 @@ const ProductDetailEditor = () => {
                             setForm({
                               ...form,
                               subSubCategorySlug: e.target.value,
-                              filterTags: [],
                             })
                           }
-                          required
                         >
                           <option value="">Select product family</option>
                           {subSubList.map((ss) => (
@@ -644,7 +630,11 @@ const ProductDetailEditor = () => {
                             form.subSubCategorySlug
                           )}
                         </code>
-                        . Each model must be unique within this family.
+                        . Each model must be unique within this family. Manage search filters under{' '}
+                        <a href="/search-list" className="text-[#006071] font-bold underline">
+                          Catalogue → Search List
+                        </a>
+                        .
                       </p>
                     )}
                     <div className="flex flex-wrap gap-6">
@@ -945,75 +935,13 @@ const ProductDetailEditor = () => {
                   </>
                 )}
 
-                {formTab === 'filters' && (
-                  <>
-                    {!form.subSubCategorySlug ? (
-                      <p className="text-sm text-amber-700 bg-amber-50 rounded-xl px-4 py-3">
-                        Select a product family on the Basic tab first. Filter options are scoped
-                        per sub-sub category (e.g. Dome Cameras vs Bullet Cameras).
-                      </p>
-                    ) : familyFilters.length === 0 ? (
-                      <p className="text-sm text-gray-500">
-                        No filter groups for this family yet. Run Load Default Filters on Catalogue →
-                        Search List, or add tags after seeding.
-                      </p>
-                    ) : (
-                      <p className="text-sm text-gray-500">
-                        Choose tags for{' '}
-                        <strong>
-                          {resolveFamily(form).categoryName} → {resolveFamily(form).subName} →{' '}
-                          {resolveFamily(form).subSubName}
-                        </strong>
-                        . These drive the left sidebar on the website list page.
-                      </p>
-                    )}
-                    {familyFilters.map((group) => (
-                      <div key={group._id || group.slug} className="border border-gray-100 rounded-xl p-4">
-                        <p className="text-xs font-black text-gray-400 uppercase tracking-widest mb-3">
-                          {group.attribute}
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                          {(group.items || []).map((item) => {
-                            const tag = item.item;
-                            const checked = form.filterTags.includes(tag);
-                            return (
-                              <label
-                                key={tag}
-                                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold cursor-pointer border ${
-                                  checked
-                                    ? 'bg-[#006071] text-white border-[#006071]'
-                                    : 'bg-gray-50 text-gray-600 border-gray-200'
-                                }`}
-                              >
-                                <input
-                                  type="checkbox"
-                                  className="sr-only"
-                                  checked={checked}
-                                  onChange={() => {
-                                    setForm((f) => ({
-                                      ...f,
-                                      filterTags: checked
-                                        ? f.filterTags.filter((t) => t !== tag)
-                                        : [...f.filterTags, tag],
-                                    }));
-                                  }}
-                                />
-                                {tag}
-                              </label>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    ))}
-                  </>
-                )}
               </div>
 
               <div className="p-6 border-t shrink-0 flex gap-3">
                 <button
                   type="submit"
                   disabled={saving}
-                  className="flex-1 py-4 bg-[#006071] text-white rounded-2xl font-black flex justify-center gap-2"
+                  className="flex-1 py-4 bg-[#006071] text-white rounded-2xl font-black flex justify-center gap-2 disabled:opacity-60"
                 >
                   {saving ? <Loader2 className="animate-spin" /> : <Save size={18} />}
                   Save Product Page

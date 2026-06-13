@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import SolutionDetailLayout from "../../components/Solution/SolutionDetailLayout";
+import { getSolutionMeta } from "../../utils/getSolutionMeta";
+
+const META = getSolutionMeta("/solution/smartParking");
 
 const heroImage = "https://images.pexels.com/photos/1000623/pexels-photo-1000623.jpeg?auto=compress&cs=tinysrgb&w=1600";
 const occupancyIcon = "https://raw.githubusercontent.com/feathericons/feather/master/icons/map-pin.svg";
@@ -166,68 +170,25 @@ const SmartParking = () => {
   }, []);
 
   return (
-    <section className="solution-page overflow-hidden pt-5 pb-5 pb-lg-6">
-      {/* Section 1 - Hero Section from API */}
-      <header
-        className="position-relative overflow-hidden mb-5"
-        style={{
-          backgroundImage: section1Data?.image
-            ? `linear-gradient(115deg, rgba(6,72,116,0.9), rgba(0, 142, 160, 0.82)), url(${section1Data.image})`
-            : `linear-gradient(115deg, rgba(6,72,116,0.9), rgba(0, 142, 160, 0.82)), url(${heroImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="position-absolute top-0 bottom-0 end-0 start-0 bg-dark bg-opacity-25" />
-        <div className="container py-5 py-lg-6 position-relative text-white">
-          <div className="row g-4 align-items-center">
-            <div className="col-xl-6 col-lg-7" data-aos="fade-right">
-              <div className="d-inline-flex align-items-center gap-2 mb-3">
-                <span className="badge bg-warning text-dark fw-semibold text-uppercase letter-spacing">Smart Parking</span>
-                <span className="small text-white-75">Powered by Nexyos Mobility Cloud</span>
-              </div>
-              <h1 className="display-4 fw-bold mb-3 lh-sm">
-                {section1Data?.heading || "Turn Every Parking Asset Into A Connected Mobility Hub"}
-              </h1>
-              <p className="lead text-white-75 mb-4">
-                {section1Data?.description || "Nexyos Smart Parking synchronizes sensors, guidance, enforcement, and revenue intelligence so cities and enterprises can boost mobility, meet sustainability goals, and delight drivers."}
-              </p>
-              <div className="d-flex flex-wrap gap-3">
-                <a href="#journey" className="btn btn-light text-uppercase fw-semibold px-4 shadow-sm">
-                  Explore The Journey
-                </a>
-                <a href="/contact" className="btn btn-outline-light text-uppercase fw-semibold px-4">
-                  Book A Mobility Audit
-                </a>
-              </div>
-            </div>
-            <div className="col-xl-4 col-lg-5 ms-xl-auto" data-aos="fade-left" data-aos-delay="120">
-              <div className="p-4 rounded-4 bg-white bg-opacity-10 backdrop-blur-lg border border-white border-opacity-10 shadow-lg">
-                <h2 className="h5 text-white fw-semibold mb-3">Trusted By</h2>
-                <div className="row row-cols-2 gy-3 text-white-75 small">
-                  <div className="col">
-                    <p className="mb-1">Smart cities</p>
-                    <h3 className="h5 fw-bold text-white mb-0">28</h3>
-                  </div>
-                  <div className="col">
-                    <p className="mb-1">Airports & hubs</p>
-                    <h3 className="h5 fw-bold text-white mb-0">19</h3>
-                  </div>
-                  <div className="col">
-                    <p className="mb-1">Retail campuses</p>
-                    <h3 className="h5 fw-bold text-white mb-0">46</h3>
-                  </div>
-                  <div className="col">
-                    <p className="mb-1">EV-ready facilities</p>
-                    <h3 className="h5 fw-bold text-white mb-0">62%</h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
+    <SolutionDetailLayout
+      title={section1Data?.heading || "Turn Every Parking Asset Into A Connected Mobility Hub"}
+      subtitle={
+        section1Data?.description ||
+        "Nexyos Smart Parking synchronizes sensors, guidance, enforcement, and revenue intelligence so cities and enterprises can boost mobility, meet sustainability goals, and delight drivers."
+      }
+      image={section1Data?.image || heroImage || META.heroImage}
+      badge={META.groupTitle}
+      actions={
+        <>
+          <a href="#journey" className="solution-detail__btn solution-detail__btn--primary">
+            Explore The Journey
+          </a>
+          <a href="/contact" className="solution-detail__btn solution-detail__btn--ghost">
+            Book A Mobility Audit
+          </a>
+        </>
+      }
+    >
       {/* Section 2 - Stats Section from API */}
       <section className="py-5 py-lg-6">
         <div className="container">
@@ -520,7 +481,7 @@ const SmartParking = () => {
           </div>
         </div>
       </section>
-    </section>
+    </SolutionDetailLayout>
   );
 };
 

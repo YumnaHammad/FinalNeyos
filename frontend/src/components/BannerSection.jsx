@@ -10,11 +10,17 @@ const BannerSection = ({
   ImageSize,
   textColor,
 }) => {
+  const overlay =
+    gradient && gradient !== 'none'
+      ? gradient
+      : 'linear-gradient(135deg, rgba(0,21,26,0.82), rgba(0,96,113,0.65))';
+
+  const isVideo = image && /\.(mp4|webm|ogg)(\?|$)/i.test(image);
+
   const pageStyles = {
     heroSection: {
-      backgroundImage: image
-        ? `${gradient}, url(${image})`
-        : gradient,
+      backgroundImage: image && !isVideo ? `${overlay}, url(${image})` : overlay,
+      backgroundColor: '#00151a',
       backgroundSize: ImageSize || "cover",
       backgroundRepeat: "no-repeat",
       backgroundPosition: "center",

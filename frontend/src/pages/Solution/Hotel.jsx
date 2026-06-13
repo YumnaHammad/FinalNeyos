@@ -16,7 +16,10 @@ import { LiaShippingFastSolid } from "react-icons/lia";
 import { FaBalanceScaleLeft } from "react-icons/fa";
 import { RiSecurePaymentLine } from "react-icons/ri";
 import { GrShieldSecurity } from "react-icons/gr";
-import BannerSection from '../../components/BannerSection'
+import SolutionDetailLayout from '../../components/Solution/SolutionDetailLayout';
+import { getSolutionMeta } from '../../utils/getSolutionMeta';
+
+const META = getSolutionMeta('/solution/hotel');
 
 const Hotel = () => {
 
@@ -167,18 +170,12 @@ const securityTabs = [
 
 
   return (
-    <div>
-     {/* Hero Section */}
-        <BannerSection
-          gradient="none"
-          content="justify-content-center"
-          textAlign="text-center"
-          textColor="text-white"
-          title="Smart People Counting Solution for Different Applications"
-          subtitle="The Reliable People Counter Makes Decisions Smart"
-          image='https://www.milesight.com/static/pc/en/solution/people-counting/occupancy-and-people-counting-solution.jpg?t=1754899499415'
-        />
-
+    <SolutionDetailLayout
+      title="Smart People Counting Solution for Different Applications"
+      subtitle="The Reliable People Counter Makes Decisions Smart"
+      image="https://www.milesight.com/static/pc/en/solution/people-counting/occupancy-and-people-counting-solution.jpg?t=1754899499415"
+      badge={META.groupTitle}
+    >
 <TrustedBy/>
 <SecurityTabs tabs={securityTabs}/>
 <SmartWorkspace/>
@@ -187,7 +184,7 @@ const securityTabs = [
         highlights={sensorHighlights}
       />
 <InterestedSection sectionTitle="You may also be interested in" items={data}/>
-    </div>
+    </SolutionDetailLayout>
   )
 }
 

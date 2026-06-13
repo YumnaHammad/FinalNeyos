@@ -5,8 +5,11 @@ import InterestedSection from '../../components/Solution/InterestedSection'
 import retail_related_links from "../../assets/images/nexyos/retail_related_links.png";
 import extrance from "../../assets/images/nexyos/extrance.jpg";
 import Store1 from "../../assets/images/nexyos/Store1.jpg";
-import WhyChooseUs from '../../components/WhyChooseUs'
 import ReactPlayer from 'react-player'
+import SolutionDetailLayout from '../../components/Solution/SolutionDetailLayout';
+import { getSolutionMeta } from '../../utils/getSolutionMeta';
+
+const META = getSolutionMeta('/solution/smartRestroom');
 
 const Smart_Restroom = () => {
      const [section1Data, setSection1Data] = useState(null);
@@ -88,19 +91,12 @@ const Smart_Restroom = () => {
     fetchSection4Data();
   }, []);
   return (
-    <>
-      {/* Section 1 - Hero Section from API */}
-      {section1Data && (
-        <WhyChooseUs
-          heading={section1Data.heading}
-          subHeadings={section1Data.sub_heading ? [section1Data.sub_heading] : []}
-          image={section1Data.image}
-          badgeText="Live Preview"
-          headingIconClass="ph ph-target"
-          itemIconClass="ph ph-shield-check"
-        />
-      )}
-
+    <SolutionDetailLayout
+      title={section1Data?.heading || META.label}
+      subtitle={section1Data?.sub_heading || META.desc}
+      image={section1Data?.image || META.heroImage}
+      badge={META.groupTitle}
+    >
       <div className="mt-5">
         {/* Section 2 - Reshape Restrooms with Smartness from API */}
         {section2Data && (
@@ -184,7 +180,7 @@ const Smart_Restroom = () => {
         <RestroomCard/>
         <InterestedSection sectionTitle="You may also be interested in" items={data}/>
       </div>
-    </>
+    </SolutionDetailLayout>
   )
 }
 

@@ -1,7 +1,8 @@
 import React from "react";
+import SolutionDetailLayout from "../../components/Solution/SolutionDetailLayout";
+import { getSolutionMeta } from "../../utils/getSolutionMeta";
 
-const heroImage =
-  "https://images.pexels.com/photos/256455/pexels-photo-256455.jpeg?auto=compress&cs=tinysrgb&w=1600";
+const META = getSolutionMeta("/solution/Education");
 
 const personas = [
   {
@@ -67,48 +68,22 @@ const path = [
 
 const Education = () => {
   return (
-    <section className="solution-page overflow-hidden pt-5 pb-5 pb-lg-6">
-      <header
-        className="position-relative overflow-hidden mb-5"
-        style={{
-          backgroundImage: `linear-gradient(120deg, rgba(57,92,179,0.88), rgba(45,157,212,0.85)), url(${heroImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="position-absolute top-0 bottom-0 start-0 end-0 bg-dark bg-opacity-30" />
-        <div className="container position-relative text-white py-5 py-lg-6">
-          <div className="row g-4 align-items-center">
-            <div className="col-lg-7" data-aos="fade-right">
-              <span className="badge bg-light text-primary fw-semibold text-uppercase letter-spacing mb-3">
-                Smart Education
-              </span>
-              <h1 className="display-4 fw-bold mb-3 lh-sm">Design Campuses That Inspire, Safeguard, and Adapt</h1>
-              <p className="lead text-white-75 mb-4">
-                Nexyos unifies safety, digital learning, and building intelligence so institutions can create exceptional experiences for
-                students, faculty, and staff on campus or online.
-              </p>
-              <div className="d-flex flex-wrap gap-3">
-                <a href="#personas" className="btn btn-warning text-uppercase fw-semibold px-4 shadow-sm">
-                  See Personas
-                </a>
-                <a href="/contact" className="btn btn-outline-light text-uppercase fw-semibold px-4">
-                  Talk With Campus Advisors
-                </a>
-              </div>
-            </div>
-            <div className="col-lg-5" data-aos="fade-left" data-aos-delay="100">
-              <div className="rounded-4 bg-white bg-opacity-10 backdrop-blur-lg border border-white border-opacity-10 shadow-lg p-4">
-                <h2 className="h6 text-white fw-semibold mb-3">Outcomes Delivered</h2>
-                <p className="text-white-75 small mb-2">• 35% faster emergency response through connected operations center.</p>
-                <p className="text-white-75 small mb-2">• 50% increase in hybrid-learning satisfaction from faculty and students.</p>
-                <p className="text-white-75 small mb-0">• 22% energy savings via smart schedules, occupancy, and HVAC automation.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
+    <SolutionDetailLayout
+      title="Design Campuses That Inspire, Safeguard, and Adapt"
+      subtitle="Nexyos unifies safety, digital learning, and building intelligence so institutions can create exceptional experiences for students, faculty, and staff on campus or online."
+      image={META.heroImage}
+      badge={META.groupTitle}
+      actions={
+        <>
+          <a href="#personas" className="solution-detail__btn solution-detail__btn--primary">
+            See Personas
+          </a>
+          <a href="/contact" className="solution-detail__btn solution-detail__btn--ghost">
+            Talk With Campus Advisors
+          </a>
+        </>
+      }
+    >
       <section id="personas" className="py-5 py-lg-6 container">
         <h2 className="h3 fw-bold text-center mb-4" data-aos="fade-up">
           Empower Every Campus Persona
@@ -236,7 +211,7 @@ const Education = () => {
       </div>
     </div>
       </section>
-    </section>
+    </SolutionDetailLayout>
   );
 };
 

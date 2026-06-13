@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import HeroSection from '../../components/SpaceOccupancy/HeroSection'
 import Contact from '../../components/Contact'
-import FeatureTiles  from '../../components/SpaceOccupancy/FeatureTiles '
+import FeatureTiles from '../../components/SpaceOccupancy/FeatureTiles '
+import SolutionDetailLayout from '../../components/Solution/SolutionDetailLayout';
+import { getSolutionMeta } from '../../utils/getSolutionMeta';
+
+const META = getSolutionMeta('/solution/smartSpace');
 
 const SpaceOccupancy = () => {
   const [section1Data, setSection1Data] = useState(null);
@@ -23,11 +26,15 @@ const SpaceOccupancy = () => {
   }, []);
 
   return (
-    <div >
-      <HeroSection section1Data={section1Data} />
+    <SolutionDetailLayout
+      title={section1Data?.heading || META.label}
+      subtitle={section1Data?.description || section1Data?.paragraph || META.desc}
+      image={section1Data?.image || META.heroImage}
+      badge={META.groupTitle}
+    >
       <FeatureTiles />
-      <Contact/>
-    </div>
+      <Contact />
+    </SolutionDetailLayout>
   )
 }
 

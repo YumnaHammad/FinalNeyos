@@ -3,7 +3,10 @@ import ImageRightText from "../../components/ImageRightText";
 import CarouselCard from "../../components/cards/CarouselCard";
 import south_wales_police from "../../assets/images/Solution/new-south-wales-police-logo.png";
 import Download from "../../components/Download";
-import BannerSection from "../../components/BannerSection";
+import SolutionDetailLayout from "../../components/Solution/SolutionDetailLayout";
+import { getSolutionMeta } from "../../utils/getSolutionMeta";
+
+const META = getSolutionMeta("/solution/retailSecurity");
 import WhatWeOfferSection from "../../components/WhatWeOfferSection";
 
 const RetailSecurity = () => {
@@ -132,19 +135,12 @@ const RetailSecurity = () => {
     fetchDownloadPdfData();
   }, []);
   return (
-    <div>
-      {/* Hero Section */}
-      {BannerData && (
-        <BannerSection
-          gradient="none"
-          content="justify-content-center"
-          textAlign="text-center"
-          textColor="text-white"
-          title={BannerData.heading}
-          subtitle={BannerData.description}
-          image={BannerData.image}
-        />
-      )}
+    <SolutionDetailLayout
+      title={BannerData?.heading || META.label}
+      subtitle={BannerData?.description || META.desc}
+      image={BannerData?.image || META.heroImage}
+      badge={META.groupTitle}
+    >
       <div className="mt-5">
         {whatOfferData && (
           <WhatWeOfferSection
@@ -194,7 +190,7 @@ const RetailSecurity = () => {
         paragraph = {downloadData.paragraph}
         pdf = {downloadData.pdf} />)}
       </div>
-    </div>
+    </SolutionDetailLayout>
   );
 };
 

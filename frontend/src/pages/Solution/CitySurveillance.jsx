@@ -6,7 +6,10 @@ import InterestedSection from "../../components/Solution/InterestedSection";
 import retail_related_links from "../../assets/images/nexyos/retail_related_links.png";
 import extrance from "../../assets/images/nexyos/extrance.jpg";
 import Store1 from "../../assets/images/nexyos/Store1.jpg";
-import BannerSection from "../../components/BannerSection";
+import SolutionDetailLayout from "../../components/Solution/SolutionDetailLayout";
+import { getSolutionMeta } from "../../utils/getSolutionMeta";
+
+const META = getSolutionMeta("/solution/citySurveillance");
 
 const CitySurveillance = () => {
   const [BannerData, setBannerData] = useState(null);
@@ -174,18 +177,12 @@ const CitySurveillance = () => {
     fetchCardCarouselData();
   }, []);
   return (
-    <>
-      {BannerData && (
-        <BannerSection
-          gradient="none"
-          content="justify-content-center"
-          textAlign="text-center"
-          textColor="text-white"
-          title={BannerData.heading}
-          subtitle={BannerData.description}
-          image={BannerData.image}
-        />
-      )}
+    <SolutionDetailLayout
+      title={BannerData?.heading || META.label}
+      subtitle={BannerData?.description || META.desc}
+      image={BannerData?.image || META.heroImage}
+      badge={META.groupTitle}
+    >
       {/* Trusted By Section */}
       <TrustedBy />
 
@@ -201,7 +198,7 @@ const CitySurveillance = () => {
         sectionTitle="You may also be interested in"
         items={data}
       />
-    </>
+    </SolutionDetailLayout>
   );
 };
 

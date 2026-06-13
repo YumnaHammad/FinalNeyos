@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import SolutionDetailLayout from "../../components/Solution/SolutionDetailLayout";
+import { getSolutionMeta } from "../../utils/getSolutionMeta";
 import "./Indoor_Air_Quality.scss";
+
+const META = getSolutionMeta("/solution/IndoorAirQuality");
 
 const defaultHeroImage =
   "https://images.pexels.com/photos/4792492/pexels-photo-4792492.jpeg?auto=compress&cs=tinysrgb&w=1600";
@@ -245,40 +249,12 @@ const Indoor_Air_Quality = () => {
   }, []);
 
   return (
-    <section className="solution-page overflow-hidden pt-5 pb-5 pb-lg-6">
-      <header
-        className="position-relative overflow-hidden mb-5"
-        style={{
-          backgroundImage: `linear-gradient(120deg, rgba(0,115,95,0.85), rgba(0,173,172,0.78)), url(${header.image})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          minHeight: "75vh",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <div className="position-absolute top-0 bottom-0 start-0 end-0 bg-dark bg-opacity-25" />
-        <div className="container position-relative text-white text-start py-5 py-lg-6">
-            <div className="col-lg-8 text-start" data-aos="fade-right">
-              <h1
-                className="display-4 fw-bold mb-3 lh-sm text-start"
-                style={{ fontSize: "clamp(2rem, 4vw, 4rem)" }}
-              >
-                {header.heading}
-              </h1>
-              {header.desc ? (
-                <p className="lead text-white-75 mb-4" style={{ fontSize: "clamp(1rem, 1.8vw, 1.5rem)" }}>
-                  {header.desc}
-                </p>
-              ) : null}
-              {/* <div className="d-flex flex-wrap gap-3">
-                <a href="#sensors" className="btn btn-light text-uppercase fw-semibold px-4 shadow-sm">Explore Platform</a>
-                <a href="/contact" className="btn btn-outline-light text-uppercase fw-semibold px-4">Consult An IAQ Expert</a>
-              </div> */}
-            </div>
-        </div>
-      </header>
-
+    <SolutionDetailLayout
+      title={header.heading || META.label}
+      subtitle={header.desc || META.desc}
+      image={header.image || META.heroImage}
+      badge={META.groupTitle}
+    >
       <section id="sensors" className="py-5 py-lg-6 container px-3 px-lg-5" style={{ paddingTop: '4rem' }}>
         <div className="row row-cols-1 row-cols-md-3 g-4">
           {sensorsList.map((sensor, index) => (
@@ -415,7 +391,7 @@ const Indoor_Air_Quality = () => {
           </div>
         </div>
       </section>
-    </section>
+    </SolutionDetailLayout>
   );
 };
 
