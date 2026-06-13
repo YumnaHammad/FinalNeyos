@@ -64,7 +64,7 @@ const familyPath = (categorySlug, subCategorySlug, subSubCategorySlug) =>
 const familyKey = (p) =>
   `${p.categorySlug || ''}|${p.subCategorySlug || ''}|${p.subSubCategorySlug || ''}`;
 
-const ProductDetailEditor = () => {
+const ProductDetailEditor = ({ readOnly = false }) => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -84,7 +84,7 @@ const ProductDetailEditor = () => {
     setLoading(true);
     try {
       const [pRes, cRes] = await Promise.all([
-        api.get('/vendors/products'),
+        api.get('/products'),
         api.get('/categories'),
       ]);
       setProducts(Array.isArray(pRes.data) ? pRes.data : []);
@@ -177,9 +177,9 @@ const ProductDetailEditor = () => {
         resources: form.resources || { documents: [], firmware: [] },
       };
       if (modal === 'edit' && form._id) {
-        await api.put(`/vendors/products/${form._id}`, payload);
+        await api.put(`/products/${form._id}`, payload);
       } else {
-        await api.post('/vendors/products', payload);
+        await api.post('/products', payload);
       }
       toast.success('Product saved — visible on site immediately', { id: toastId });
       setModal(null);
@@ -194,7 +194,7 @@ const ProductDetailEditor = () => {
   const deleteProduct = async () => {
     if (!deleteId) return;
     try {
-      await api.delete(`/vendors/products/${deleteId}`);
+      await api.delete(`/products/${deleteId}`);
       toast.success('Product deleted');
       setDeleteId(null);
       fetchAll();
@@ -287,10 +287,17 @@ const ProductDetailEditor = () => {
           <div>
             <h3 className="text-xl font-black text-gray-900">Product Detail Pages</h3>
             <p className="text-gray-500 text-sm mt-1">
-              Full long-page data (gallery, features, specs, resources). Each product opens at{' '}
-              <code className="text-[#006071]">/products/[slug]</code> on the website.
+              {readOnly
+                ? 'Browse the full product catalogue. Contact admin to request changes.'
+                : 'Full long-page data (gallery, features, specs, resources). Each product opens at'}{' '}
+              {!readOnly && (
+                <>
+                  <code className="text-[#006071]">/products/[slug]</code> on the website.
+                </>
+              )}
             </p>
           </div>
+          {!readOnly && (
           <button
             type="button"
             onClick={() => openModal('add')}
@@ -298,6 +305,7 @@ const ProductDetailEditor = () => {
           >
             <Plus size={16} /> Add Product
           </button>
+          )}
         </div>
 
         <div className="p-6 border-b border-gray-50 space-y-4">
@@ -440,11 +448,13 @@ const ProductDetailEditor = () => {
                           </a>
                           <button
                             type="button"
-                            onClick={() => openModal('edit', p)}
+                            onClick={() => openModal(readOnly ? 'view' : 'edit', p)}
                             className="p-2.5 rounded-xl bg-gray-100 hover:bg-[#006071]/10"
+                            title={readOnly ? 'View product' : 'Edit product'}
                           >
                             <Edit2 size={16} />
                           </button>
+                          {!readOnly && (
                           <button
                             type="button"
                             onClick={() => setDeleteId(p._id)}
@@ -452,6 +462,7 @@ const ProductDetailEditor = () => {
                           >
                             <Trash2 size={16} />
                           </button>
+                          )}
                         </div>
                       </div>
                     ))}
@@ -478,13 +489,16 @@ const ProductDetailEditor = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
-              onSubmit={saveProduct}
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (!readOnly) saveProduct(e);
+              }}
               className="relative bg-white w-full md:max-w-4xl max-h-[92vh] overflow-hidden rounded-t-[2rem] md:rounded-[2rem] shadow-2xl flex flex-col"
             >
               <div className="p-6 border-b flex justify-between items-center shrink-0">
                 <div>
                   <p className="text-[10px] font-black text-[#006071] uppercase tracking-widest">
-                    {modal === 'edit' ? 'Edit Product' : 'New Product'}
+                    {readOnly ? 'View Product' : modal === 'edit' ? 'Edit Product' : 'New Product'}
                   </p>
                   <h3 className="text-xl font-black text-gray-900">
                     {form.model || form.title || 'Product detail page'}
@@ -512,6 +526,7 @@ const ProductDetailEditor = () => {
                 ))}
               </div>
 
+              <fieldset disabled={readOnly} className="flex flex-col flex-1 min-h-0 border-0 m-0 p-0">
               <div className="p-6 overflow-y-auto flex-1 space-y-4">
                 {formTab === 'basic' && (
                   <>
@@ -935,8 +950,19 @@ const ProductDetailEditor = () => {
                 )}
 
               </div>
+              </fieldset>
 
               <div className="p-6 border-t shrink-0 flex gap-3">
+                {readOnly ? (
+                  <button
+                    type="button"
+                    onClick={() => setModal(null)}
+                    className="flex-1 py-4 bg-gray-100 rounded-2xl font-bold"
+                  >
+                    Close
+                  </button>
+                ) : (
+                  <>
                 <button
                   type="submit"
                   disabled={saving}
@@ -952,13 +978,15 @@ const ProductDetailEditor = () => {
                 >
                   Cancel
                 </button>
+                  </>
+                )}
               </div>
             </motion.form>
           </div>
         )}
       </AnimatePresence>
 
-      {deleteId && (
+      {!readOnly && deleteId && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-gray-900/50" onClick={() => setDeleteId(null)} />
           <div className="relative bg-white rounded-2xl p-8 max-w-sm text-center space-y-4">

@@ -14,6 +14,7 @@ import {
   Video,
   Search,
   BookOpen,
+  MessageSquare,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -69,6 +70,8 @@ const Sidebar = () => {
       ],
     },
     { name: 'Vendor Accounts', icon: Users, path: '/vendors' },
+    { name: 'Sales Inquiries', icon: MessageSquare, path: '/sales-inquiries' },
+    { name: 'Registered Users', icon: Users, path: '/registrations' },
   ];
 
   return (

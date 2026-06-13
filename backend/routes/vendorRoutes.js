@@ -16,6 +16,12 @@ const {
   seedDefault,
   requireVendor,
 } = require('../controllers/vendorController');
+const {
+  listForVendor,
+  getVendorStats,
+  updateVendorStatus,
+} = require('../controllers/salesInquiryController');
+const { listAll: listRegistrations } = require('../controllers/registrationController');
 
 // Public
 router.post('/login', login);
@@ -25,6 +31,10 @@ router.post('/seed', seedDefault);
 router.get('/me', requireVendor, getProfile);
 router.put('/me', requireVendor, updateProfile);
 router.get('/dashboard', requireVendor, getDashboardStats);
+router.get('/inquiries/stats', requireVendor, getVendorStats);
+router.get('/inquiries', requireVendor, listForVendor);
+router.patch('/inquiries/:id', requireVendor, updateVendorStatus);
+router.get('/registrations', requireVendor, listRegistrations);
 router.get('/products', requireVendor, listVendorProducts);
 router.post('/products', requireVendor, createVendorProduct);
 router.put('/products/:id', requireVendor, updateVendorProduct);

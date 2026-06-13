@@ -104,6 +104,7 @@
 
 .info {
   padding-top: 0.5rem;
+  text-align: left;
 }
 
 .modelRow {
@@ -210,31 +211,32 @@
 }
 
 .featuresList {
-  list-style: none;
+  list-style: disc;
+  list-style-position: outside;
   margin: 0 0 1.25rem;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
+  padding-left: 1.35rem;
+  text-align: left;
+  width: 100%;
 }
 
 .featureItem {
+  display: list-item;
   font-size: 0.9rem;
   color: #475569;
   line-height: 1.45;
-  padding-left: 1rem;
-  position: relative;
+  text-align: left;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-bottom: 0.35rem;
 }
 
-.featureItem::before {
-  content: '•';
-  position: absolute;
-  left: 0;
+.featureItem:last-child {
+  margin-bottom: 0;
+}
+
+.featureItem::marker {
   color: #006071;
-  font-weight: 700;
 }
 
 @media (max-width: 600px) {

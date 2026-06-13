@@ -1,7 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Download } from 'lucide-react';
-import API, { resolveMediaUrl } from '../../api';
+import API, {
+  resolveMediaUrl,
+  resolveDocumentUrl,
+  documentFileName,
+  downloadProductDataSheet,
+} from '../../api';
+import { toast } from 'react-toastify';
 import Contact from '../../components/Contact';
 import miniCAmeraGroup from '../../assets/images/nexyos/miniCAmeraGroup.png';
 import styles from '../../styles/ProductLongPage.module.css';
@@ -16,6 +22,7 @@ const ProductDetailPage = () => {
   const [activeTab, setActiveTab] = useState('spec');
   const [activeSpecGroup, setActiveSpecGroup] = useState(null);
   const [categoryTrail, setCategoryTrail] = useState([]);
+  const [downloadingSheet, setDownloadingSheet] = useState(false);
 
   const specRef = useRef(null);
   const resourcesRef = useRef(null);
@@ -85,6 +92,18 @@ const ProductDetailPage = () => {
 
   const documents = product?.resources?.documents || [];
   const firmware = product?.resources?.firmware || [];
+
+  const handleDataSheetDownload = async () => {
+    if (!product) return;
+    setDownloadingSheet(true);
+    try {
+      await downloadProductDataSheet(product);
+    } catch (err) {
+      toast.error(err.message || 'Could not generate data sheet');
+    } finally {
+      setDownloadingSheet(false);
+    }
+  };
 
   const scrollToSection = (tab) => {
     setActiveTab(tab);
@@ -221,18 +240,21 @@ const ProductDetailPage = () => {
               )}
 
               <div className={styles.actions}>
-                <Link
-                  to={product.dataSheetUrl || '/contact'}
+                <button
+                  type="button"
                   className={styles.btnPrimary}
+                  onClick={handleDataSheetDownload}
+                  disabled={downloadingSheet}
                 >
-                  Data Sheet
-                </Link>
+                  {downloadingSheet ? 'Generating…' : 'Data Sheet'}
+                </button>
                 <button
                   type="button"
                   className={styles.btnSecondary}
                   onClick={() =>
                     navigate('/sales-inquiry', {
                       state: {
+                        productId: product._id,
                         productModel: product.model,
                         productTitle: product.title,
                         productSlug: product.slug,
@@ -331,16 +353,46 @@ const ProductDetailPage = () => {
             <div className={styles.resourceHead}>Technical Documents</div>
             {documents.length > 0 ? (
               <div className={styles.docGrid}>
-                {documents.map((doc, idx) => (
-                  <Link
-                    key={idx}
-                    to={doc.url || '/contact'}
-                    className={styles.docItem}
-                  >
-                    <span>{doc.title}</span>
-                    <Download size={16} />
-                  </Link>
-                ))}
+                {documents.map((doc, idx) => {
+                  const isDataSheet = /data\s*sheet/i.test(doc.title || '');
+                  const docUrl = isDataSheet ? null : resolveDocumentUrl(doc.url);
+                  const fileName = documentFileName(docUrl, `${doc.title || 'document'}.pdf`);
+
+                  if (isDataSheet) {
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={handleDataSheetDownload}
+                        disabled={downloadingSheet}
+                        className={styles.docItem}
+                        style={{ border: 'none', background: 'transparent', width: '100%', textAlign: 'left', cursor: 'pointer' }}
+                      >
+                        <span>{doc.title}</span>
+                        <Download size={16} />
+                      </button>
+                    );
+                  }
+
+                  return docUrl ? (
+                    <a
+                      key={idx}
+                      href={docUrl}
+                      download={fileName}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.docItem}
+                    >
+                      <span>{doc.title}</span>
+                      <Download size={16} />
+                    </a>
+                  ) : (
+                    <span key={idx} className={styles.docItem} style={{ opacity: 0.5 }}>
+                      <span>{doc.title}</span>
+                      <Download size={16} />
+                    </span>
+                  );
+                })}
               </div>
             ) : (
               <p className={styles.message} style={{ padding: '1.5rem' }}>
@@ -353,12 +405,21 @@ const ProductDetailPage = () => {
             <div className={styles.resourceHead}>Firmware</div>
             {firmware.length > 0 ? (
               <ul className={styles.firmwareList}>
-                {firmware.map((item, idx) => (
-                  <li key={idx} className={styles.firmwareItem}>
-                    <Link to={item.url || '/contact'}>{item.title}</Link>
-                    {item.date && <span className={styles.firmwareDate}>{item.date}</span>}
-                  </li>
-                ))}
+                {firmware.map((item, idx) => {
+                  const fwUrl = resolveDocumentUrl(item.url);
+                  return (
+                    <li key={idx} className={styles.firmwareItem}>
+                      {fwUrl ? (
+                        <a href={fwUrl} download={documentFileName(fwUrl)} target="_blank" rel="noopener noreferrer">
+                          {item.title}
+                        </a>
+                      ) : (
+                        <span>{item.title}</span>
+                      )}
+                      {item.date && <span className={styles.firmwareDate}>{item.date}</span>}
+                    </li>
+                  );
+                })}
               </ul>
             ) : (
               <p className={styles.message} style={{ padding: '1.5rem' }}>

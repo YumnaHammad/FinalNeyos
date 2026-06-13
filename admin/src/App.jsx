@@ -13,6 +13,8 @@ import SearchListPage from './pages/SearchListPage';
 import BlogsSettings from './pages/BlogsSettings';
 import NewsSettings from './pages/NewsSettings';
 import EventsSettings from './pages/EventsSettings';
+import SalesInquiries from './pages/SalesInquiries';
+import Registrations from './pages/Registrations';
 
 const ProtectedRoute = ({ children }) => {
   const isLoggedIn =
@@ -61,6 +63,8 @@ function App() {
                     <Route path="/blogs-settings" element={<BlogsSettings />} />
                     <Route path="/news-settings" element={<NewsSettings />} />
                     <Route path="/events-settings" element={<EventsSettings />} />
+                    <Route path="/sales-inquiries" element={<SalesInquiries />} />
+                    <Route path="/registrations" element={<Registrations />} />
                     <Route path="/solutions-settings" element={<Navigate to="/" replace />} />
                     <Route path="/specifications" element={<Navigate to="/search-list" replace />} />
                     <Route path="/specifications/*" element={<Navigate to="/search-list" replace />} />

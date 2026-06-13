@@ -1,18 +1,30 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Flame, Loader2, Package, Sparkles } from 'lucide-react';
+import { Box, Flame, Loader2, Package, Sparkles, MessageSquare, Search } from 'lucide-react';
 import { api, getVendorSession } from '../lib/api';
 
 export default function Dashboard() {
   const vendor = getVendorSession();
   const [stats, setStats] = useState(null);
+  const [inquiryStats, setInquiryStats] = useState({ total: 0, unread: 0 });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api
-      .get('/vendors/dashboard')
-      .then((res) => setStats(res.data))
-      .catch(() => setStats({ total: 0, active: 0, newCount: 0, hotCount: 0 }))
+    Promise.all([api.get('/products'), api.get('/vendors/inquiries/stats')])
+      .then(([productsRes, inquiryRes]) => {
+        const products = Array.isArray(productsRes.data) ? productsRes.data : [];
+        setStats({
+          total: products.length,
+          active: products.filter((p) => p.isActive !== false).length,
+          newCount: products.filter((p) => p.isNew).length,
+          hotCount: products.filter((p) => p.isHot).length,
+        });
+        setInquiryStats(inquiryRes.data);
+      })
+      .catch(() => {
+        setStats({ total: 0, active: 0, newCount: 0, hotCount: 0 });
+        setInquiryStats({ total: 0, unread: 0 });
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -34,7 +46,7 @@ export default function Dashboard() {
         </h1>
         <p className="text-gray-500 mt-1">
           {vendor?.company ? `${vendor.company} · ` : ''}
-          Manage your product catalogue and keep listings current.
+          Manage the product catalogue (view only), search lists, and sales inquiries.
         </p>
       </div>
 
@@ -60,15 +72,36 @@ export default function Dashboard() {
       <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
         <h2 className="text-lg font-bold text-gray-900 mb-2">Quick actions</h2>
         <p className="text-gray-500 text-sm mb-4">
-          Add or edit products with full specifications, images, and downloadable resources.
+          Browse products, search lists, and review sales inquiries.
         </p>
-        <Link
-          to="/products"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#006071] text-white font-bold text-sm hover:bg-[#004d5a]"
-        >
-          <Package size={16} />
-          Manage Products
-        </Link>
+        <div className="flex flex-wrap gap-2">
+          <Link
+            to="/products"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#006071] text-white font-bold text-sm hover:bg-[#004d5a]"
+          >
+            <Package size={16} />
+            View Products
+          </Link>
+          <Link
+            to="/search-list"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[#006071]/30 text-[#006071] font-bold text-sm hover:bg-[#006071]/5"
+          >
+            <Search size={16} />
+            Search List
+          </Link>
+          <Link
+            to="/inquiries"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[#006071]/30 text-[#006071] font-bold text-sm hover:bg-[#006071]/5"
+          >
+            <MessageSquare size={16} />
+            Sales Inquiries
+            {inquiryStats.unread > 0 && (
+              <span className="ml-1 px-2 py-0.5 rounded-full bg-[#006071] text-white text-xs">
+                {inquiryStats.unread}
+              </span>
+            )}
+          </Link>
+        </div>
       </div>
     </div>
   );

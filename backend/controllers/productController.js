@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+const { generateDataSheetPdf, safeName } = require('../utils/generateDataSheetPdf');
 
 const slugify = (text) =>
   String(text || '')
@@ -6,6 +7,21 @@ const slugify = (text) =>
     .trim()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
+
+const findProductByParam = async (param) => {
+  const decoded = decodeURIComponent(param || '');
+  if (!decoded) return null;
+
+  if (/^[a-f0-9]{24}$/i.test(decoded)) {
+    const byId = await Product.findById(decoded);
+    if (byId) return byId;
+  }
+
+  return (
+    (await Product.findOne({ slug: decoded })) ||
+    (await Product.findOne({ slug: slugify(decoded) }))
+  );
+};
 
 exports.listProducts = async (req, res) => {
   try {
@@ -36,23 +52,27 @@ exports.listProducts = async (req, res) => {
 
 exports.getProduct = async (req, res) => {
   try {
-    const param = decodeURIComponent(req.params.id || '');
-    let product = null;
-
-    if (/^[a-f0-9]{24}$/i.test(param)) {
-      product = await Product.findById(param);
-    }
-
-    if (!product && param) {
-      product =
-        (await Product.findOne({ slug: param })) ||
-        (await Product.findOne({ slug: slugify(param) }));
-    }
-
+    const product = await findProductByParam(req.params.id);
     if (!product) return res.status(404).json({ message: 'Product not found' });
     res.json(product);
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+};
+
+exports.downloadDataSheet = async (req, res) => {
+  try {
+    const product = await findProductByParam(req.params.slug);
+    if (!product) return res.status(404).json({ message: 'Product not found' });
+
+    const fileName = safeName(product);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+    generateDataSheetPdf(product, res);
+  } catch (err) {
+    if (!res.headersSent) {
+      res.status(500).json({ message: err.message || 'Failed to generate data sheet' });
+    }
   }
 };
 

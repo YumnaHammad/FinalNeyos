@@ -40,6 +40,8 @@ const uploadRoutes = require('./routes/uploadRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 const newsRoutes = require('./routes/newsRoutes');
 const eventRoutes = require('./routes/eventRoutes');
+const salesInquiryRoutes = require('./routes/salesInquiryRoutes');
+const registrationRoutes = require('./routes/registrationRoutes');
 
 app.use('/api/vendors', vendorRoutes);
 app.use('/api/products', productRoutes);
@@ -50,6 +52,8 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/news', newsRoutes);
 app.use('/api/events', eventRoutes);
+app.use('/api/sales-inquiries', salesInquiryRoutes);
+app.use('/api/registrations', registrationRoutes);
 app.use('/api', sectionRoutes);
 
 app.get('/', (req, res) => {

@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { toast, Toaster } from 'react-hot-toast';
 import AuthLayout from '../../components/Auth/AuthLayout';
 import AuthPasswordInput from '../../components/Auth/AuthFields';
+import API from '../../api';
 
 const PARTNER_TYPES = [
   'Installer',
@@ -69,42 +70,24 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('https://portal.nexyos.com/api/register/vendor', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          first_name: user.firstName,
-          last_name: user.lastName,
-          email: user.email,
-          type: user.type,
-          country: user.country,
-          company_name: user.companyName,
-          password: user.password,
-          code: user.verificationCode,
-        }),
+      await API.post('/registrations/register', {
+        type: user.type,
+        country: user.country,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        companyName: user.companyName,
+        email: user.email,
+        password: user.password,
+        verificationCode: user.verificationCode,
+        partnerPortal: user.partnerPortal,
+        subscribe: user.subscribe,
       });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        toast.error(errorData.message || 'Registration failed.');
-        setLoading(false);
-        return;
-      }
-
-      localStorage.setItem(
-        'user',
-        JSON.stringify({ email: user.email, password: user.password })
-      );
 
       toast.success('Account created successfully!');
       setTimeout(() => navigate('/login'), 1500);
-    } catch {
-      localStorage.setItem(
-        'user',
-        JSON.stringify({ email: user.email, password: user.password })
-      );
-      toast.success('Account saved locally. You can sign in now.');
-      setTimeout(() => navigate('/login'), 1500);
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Registration failed.');
+      setLoading(false);
     }
   };
 

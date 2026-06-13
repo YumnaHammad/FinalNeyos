@@ -27,10 +27,10 @@ module.exports = [
       'EXIR 2.0 with advanced infrared technology',
     ],
     variants: ['NX-DS2143', 'NX-DS2143/W', 'NX-DS2143/Z'],
-    dataSheetUrl: '/contact',
+    dataSheetUrl: '',
     resources: {
       documents: [
-        { title: 'Data Sheet', url: '/contact', type: 'PDF' },
+        { title: 'Data Sheet', url: '', type: 'PDF' },
         { title: 'Quick Start Guide', url: '/contact', type: 'PDF' },
         { title: 'User Manual', url: '/contact', type: 'PDF' },
         { title: 'FAQ', url: '/contact', type: 'PDF' },

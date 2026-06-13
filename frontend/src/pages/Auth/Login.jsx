@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { toast, Toaster } from 'react-hot-toast';
 import AuthLayout from '../../components/Auth/AuthLayout';
 import AuthPasswordInput, { AuthEmailInput } from '../../components/Auth/AuthFields';
+import API from '../../api';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -10,18 +11,18 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    const storedUser = JSON.parse(localStorage.getItem('user') || 'null');
-
-    if (storedUser && storedUser.email === email && storedUser.password === password) {
-      toast.success('Login successful! Redirecting…');
+    try {
+      const res = await API.post('/registrations/login', { email, password });
       localStorage.setItem('loggedIn', 'true');
+      localStorage.setItem('user', JSON.stringify(res.data.user));
+      toast.success('Login successful! Redirecting…');
       setTimeout(() => navigate('/'), 1200);
-    } else {
-      toast.error('Incorrect email or password');
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Incorrect email or password');
       setLoading(false);
     }
   };

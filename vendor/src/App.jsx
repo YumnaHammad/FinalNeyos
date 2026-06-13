@@ -4,7 +4,9 @@ import Sidebar from './components/layout/Sidebar';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
-import Profile from './pages/Profile';
+import Inquiries from './pages/Inquiries';
+import SearchListPage from './pages/SearchListPage';
+import Registrations from './pages/Registrations';
 import { isVendorLoggedIn } from './lib/api';
 
 function ProtectedRoute({ children }) {
@@ -35,7 +37,9 @@ export default function App() {
                   <Routes>
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/products" element={<Products />} />
-                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/search-list" element={<SearchListPage />} />
+                    <Route path="/inquiries" element={<Inquiries />} />
+                    <Route path="/registrations" element={<Registrations />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
                 </main>

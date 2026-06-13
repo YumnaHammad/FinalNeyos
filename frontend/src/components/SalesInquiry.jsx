@@ -34,7 +34,14 @@ export default function SalesInquiry() {
 
       <div className="sales-inquiry-page__inner">
         <h1 className="sales-inquiry-page__title">Contact Sales</h1>
-        <SalesInquiryForm defaultMessage={defaultMessage} productLabel={productLabel} />
+        <SalesInquiryForm
+          defaultMessage={defaultMessage}
+          productLabel={productLabel}
+          productId={productContext.productId || ''}
+          productSlug={productContext.productSlug || ''}
+          productModel={productContext.productModel || ''}
+          productTitle={productContext.productTitle || ''}
+        />
       </div>
     </div>
   );

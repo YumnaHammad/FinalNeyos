@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import API from '../../api';
 import '../../styles/SalesInquiry.css';
 
 const MESSAGE_MAX = 200;
@@ -56,7 +57,14 @@ const EMPTY = {
   subscribe: false,
 };
 
-export default function SalesInquiryForm({ defaultMessage = '', productLabel = '' }) {
+export default function SalesInquiryForm({
+  defaultMessage = '',
+  productLabel = '',
+  productId = '',
+  productSlug = '',
+  productModel = '',
+  productTitle = '',
+}) {
   const [form, setForm] = useState({ ...EMPTY, message: defaultMessage });
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
@@ -103,12 +111,18 @@ export default function SalesInquiryForm({ defaultMessage = '', productLabel = '
 
     setSubmitting(true);
     try {
-      await new Promise((r) => setTimeout(r, 600));
+      await API.post('/sales-inquiries', {
+        ...form,
+        productId: productId || undefined,
+        productSlug,
+        productModel,
+        productTitle,
+      });
       toast.success('Thank you! Our sales team will contact you shortly.');
       setForm({ ...EMPTY, message: '' });
       setErrors({});
-    } catch {
-      toast.error('Something went wrong. Please try again.');
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Something went wrong. Please try again.');
     } finally {
       setSubmitting(false);
     }

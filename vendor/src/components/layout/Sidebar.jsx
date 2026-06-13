@@ -1,11 +1,13 @@
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, LogOut, Package, User } from 'lucide-react';
+import { LayoutDashboard, LogOut, Package, MessageSquare, Search, Users } from 'lucide-react';
 import { clearVendorSession, getVendorSession } from '../../lib/api';
 
 const navItems = [
   { name: 'Dashboard', icon: LayoutDashboard, path: '/' },
   { name: 'Products', icon: Package, path: '/products' },
-  { name: 'Profile', icon: User, path: '/profile' },
+  { name: 'Search List', icon: Search, path: '/search-list' },
+  { name: 'Sales Inquiries', icon: MessageSquare, path: '/inquiries' },
+  { name: 'Registered Users', icon: Users, path: '/registrations' },
 ];
 
 export default function Sidebar() {
