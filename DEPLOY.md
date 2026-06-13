@@ -112,7 +112,7 @@ Test:
 
 - Website → products load
 - Admin → login password `123123`
-- Vendor → `vendor@nexyos.com` / `123123`
+- Vendor → `vendor@vendor.com` / `123123`
 
 ---
 

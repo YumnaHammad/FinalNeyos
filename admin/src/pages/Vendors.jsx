@@ -63,7 +63,7 @@ export default function Vendors() {
     setSeeding(true);
     try {
       await api.post('/vendors/seed');
-      toast.success('Demo vendor created (vendor@nexyos.com / 123123)');
+      toast.success(' vendor created (vendor@vendor.com / 123123)');
       loadAll();
     } catch (err) {
       toast.error(err.response?.data?.message || 'Seed failed');

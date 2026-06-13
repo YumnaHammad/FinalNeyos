@@ -229,10 +229,10 @@ exports.deleteVendor = async (req, res) => {
 exports.seedDefault = async (_req, res) => {
   try {
     const vendor = await Vendor.findOneAndUpdate(
-      { email: 'vendor@nexyos.com' },
+      { email: 'vendor@vendor.com' },
       {
         name: 'Demo Vendor',
-        email: 'vendor@nexyos.com',
+        email: 'vendor@vendor.com',
         password: '123123',
         company: 'Nexyos Demo Supplies',
         phone: '+91 8008008841',

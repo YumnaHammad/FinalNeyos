@@ -6,7 +6,7 @@ import { api, setVendorSession } from '../lib/api';
 import PasswordInput from '../components/PasswordInput';
 
 export default function Login() {
-  const [email, setEmail] = useState('vendor@nexyos.com');
+  const [email, setEmail] = useState('vendor@vendor.com');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ export default function Login() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="vendor@nexyos.com"
+                  placeholder="vendor@vendor.com"
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006071] focus:border-transparent outline-none"
                   required
                 />
