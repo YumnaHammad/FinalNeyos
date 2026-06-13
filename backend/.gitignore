@@ -5,3 +5,5 @@ logs
 *.log
 uploads/*
 !uploads/.gitkeep
+
+.vercel

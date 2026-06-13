@@ -1,21 +1,19 @@
 import axios from 'axios';
+import { API_BASE, API_ORIGIN, absoluteUrl } from './apiBase';
 
-/** Backend origin (no /api suffix) */
-export const API_ORIGIN =
-  import.meta.env.VITE_API_ORIGIN || 'http://127.0.0.1:5000';
-
-export const API_URL = `${API_ORIGIN}/api`;
+export { API_ORIGIN };
+export const API_URL = `${API_BASE.replace(/\/api$/, '')}/api`;
 
 export const api = axios.create({
-  baseURL: '/api',
+  baseURL: API_BASE,
 });
 
-/** Turn stored absolute upload URLs into same-origin paths for admin preview */
 export function resolveMediaUrl(url) {
   if (!url || typeof url !== 'string') return '';
-  if (url.startsWith('/uploads/')) return url;
+  if (url.startsWith('http')) return url;
+  if (url.startsWith('/uploads/')) return absoluteUrl(url);
   const match = url.match(/\/uploads\/[^/?#]+/);
-  if (match) return match[0];
+  if (match) return absoluteUrl(match[0]);
   return url;
 }
 
